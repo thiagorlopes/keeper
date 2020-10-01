@@ -37,7 +37,9 @@ function App() {
           />
         );
       })}
-      <Footer />
+      <div className="footer">
+        <Footer />
+      </div>
     </div>
   );
 }

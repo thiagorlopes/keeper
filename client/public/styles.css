@@ -9,8 +9,18 @@ html {
 }
 
 body {
+  height: 100%;
+  position: relative;
   background: #eee;
   padding: 0 16px;
+}
+
+#root {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 2.5rem;
 }
 
 header {
