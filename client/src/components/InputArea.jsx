@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
 
 function InputArea(props) {
-  const [isExpanded, setExpanded] = useState(false);
-
+  // Input and text area are initially blank
   const [note, setNote] = useState({
     title: "",
     content: "",
   });
 
+  // Change content of controlled component
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -21,6 +20,7 @@ function InputArea(props) {
     });
   }
 
+  // Pass new note over to 'App' for inserting on array and clear input area
   function submitNote(event) {
     props.onAdd(note);
     setNote({
@@ -29,27 +29,26 @@ function InputArea(props) {
     });
   }
 
-  function expand() {
-    setExpanded(true);
-  }
-
+  // Render InputArea
   return (
     <div>
-      <form>
+      <form className="input-area">
         <input
+          className="input-area"
           onChange={handleChange}
           value={note.title}
           name="title"
           placeholder="Title"
         />
         <textarea
+          className="input-area"
           onChange={handleChange}
           value={note.content}
           name="content"
           placeholder="Take a note..."
           rows="3"
         />
-        <button type="button" onClick={submitNote}>
+        <button className="input-area" type="button" onClick={submitNote}>
           <AddIcon />
         </button>
       </form>

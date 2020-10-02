@@ -12,7 +12,7 @@ router.get("/", notes.findAll);
 router.get("/:id", notes.findOne);
 
 // Update a note with id
-router.put("/:id", notes.findOne);
+router.put("/:id", notes.update);
 
 // Delete all notes
 router.delete("/", notes.deleteAll);

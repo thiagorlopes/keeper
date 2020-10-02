@@ -61,6 +61,7 @@ footer p {
   font-size: 1.1em;
   margin-bottom: 6px;
 }
+
 .note p {
   font-size: 1.1em;
   margin-bottom: 10px;
@@ -79,7 +80,7 @@ footer p {
   outline: none;
 }
 
-form {
+form.input-area {
   position: relative;
   width: 480px;
   margin: 30px auto 20px auto;
@@ -89,8 +90,8 @@ form {
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
 
-form input,
-form textarea {
+input,
+textarea {
   width: 100%;
   border: none;
   padding: 4px;
@@ -98,9 +99,10 @@ form textarea {
   font-size: 1.2em;
   font-family: inherit;
   resize: none;
+  width: 100%;
 }
 
-form button {
+button.input-area {
   position: absolute;
   right: 18px;
   bottom: -18px;

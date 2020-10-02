@@ -3,17 +3,18 @@ import Header from "./Header";
 import InputArea from "./InputArea";
 import Note from "./Note";
 import Footer from "./Footer";
-//import notes from "../notes";
 
 function App() {
   const [notes, setNotes] = useState([]);
 
+  // Add new note to array
   function addNote(newNote) {
     setNotes((prevNotes) => {
       return [...prevNotes, newNote];
     });
   }
 
+  // Delete note by id
   function deleteNote(id) {
     setNotes((prevNotes) => {
       return prevNotes.filter((note, index) => {
@@ -22,6 +23,7 @@ function App() {
     });
   }
 
+  // Render App
   return (
     <div>
       <Header />
