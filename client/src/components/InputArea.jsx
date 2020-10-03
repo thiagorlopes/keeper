@@ -3,29 +3,34 @@ import AddIcon from "@material-ui/icons/Add";
 
 function InputArea(props) {
   // Input and text area are initially blank
-  const [note, setNote] = useState({
+  const [newNote, setNewNote] = useState({
+    id: 0,
+    editable: false,
     title: "",
     content: "",
   });
 
-  // Change content of controlled component
+  // Change content of new note state
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote((prevNote) => {
+    setNewNote((prevNote) => {
       return {
         ...prevNote,
+        id: props.lastId,
         [name]: value,
       };
     });
   }
 
-  // Pass new note over to 'App' for inserting on array and clear input area
+  // Pass new note to 'App' for inserting on array and clear input area
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: "",
+    props.onAdd(newNote);
+
+    props.increaseLastId();
+
+    setNewNote((prevNote) => {
+      return { ...prevNote, id: props.lastId, title: "", content: "" };
     });
   }
 
@@ -34,16 +39,17 @@ function InputArea(props) {
     <div>
       <form className="input-area">
         <input
-          className="input-area"
+          autoFocus
+          className="note-title"
           onChange={handleChange}
-          value={note.title}
+          value={newNote.title}
           name="title"
           placeholder="Title"
         />
         <textarea
-          className="input-area"
+          className="note-content"
           onChange={handleChange}
-          value={note.content}
+          value={newNote.content}
           name="content"
           placeholder="Take a note..."
           rows="3"
