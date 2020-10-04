@@ -1,27 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
-import NoteBody from "./NoteBody";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
-import NoteOperation from "./NoteOperation";
+import NoteTitle from "./NoteTitle";
+import NoteContent from "./NoteContent";
+import Button from "./Button";
 
 function Note(props) {
-  // Set note according to initial content
+  // Set initial content to data in App's notes array
   const [note, setNote] = useState({
     id: props.id,
-    editable: false,
     title: props.title,
     content: props.content,
   });
 
-  // Dynamically change height of input element
-  const [height, setHeight] = useState(100);
+  // A note is editable if the user clicks on the edit button
+  const [editable, setEditable] = useState(false);
 
-  // Change content of controlled component
+  const [height, setContentHeight] = useState(100);
+
+  // Handle event passed by input or textarea
   function handleChange(e) {
-    const height = e.target.scrollHeight;
+    let minHeight = 82;
+    let newHeight = e.target.scrollHeight;
+
+    newHeight = newHeight < minHeight ? minHeight : newHeight;
 
     const { name, value } = e.target;
 
+    // Set input or textarea value according to name: title or content
     setNote((prevNote) => {
       return {
         ...prevNote,
@@ -29,30 +33,21 @@ function Note(props) {
       };
     });
 
-    // Set height removing 4px of padding on top and bottom from scrollHeight
-    setHeight(height - 8);
+    // Set textarea height removing 4px of padding on top and bottom from scrollHeight
+    setContentHeight(newHeight);
   }
-
-  function onUpdate() {
-    if (!isEditable) {
-      setIsEditable(true);
-    }
-  }
-
-  // Store state for when a note is editable
-  const [isEditable, setIsEditable] = useState(false);
 
   // Ref for accessing the note's div node
-  const ref = useRef(null);
+  const node = useRef(null);
 
-  // Turns off note editing if clicked outside div
+  // Check if user clicks outside the node and turns off editing if so
   const handleClickOutside = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      setIsEditable(false);
+    if (node.current && !node.current.contains(e.target)) {
+      setEditable(false);
     }
   };
 
-  // Create the same effect as componentDidMount and componentDidUnmount
+  // Call callback after every render (similar to componentDidMount and componentDidUnmount)
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
@@ -60,34 +55,45 @@ function Note(props) {
     };
   }, []);
 
-  // Return input and textarea if note is editable
-  const noteBody = (
-    <NoteBody
-      onChange={handleChange}
-      note={note}
-      isEditable={isEditable}
-      height={height}
-    />
-  );
-
   // Render Note
   return (
-    <div className="note" ref={ref}>
-      {noteBody}
-      <button
-        onClick={() => {
+    <div className="note" ref={node}>
+      <form>
+        <NoteTitle
+          title={note.title}
+          onChange={handleChange}
+          editable={editable}
+        />
+
+        <NoteContent
+          content={note.content}
+          onChange={handleChange}
+          editable={editable}
+          height={height}
+        />
+      </form>
+
+      {/* Delete button calls onDelete in App.jsx */}
+      <Button
+        type="delete"
+        id={note.id}
+        onDelete={() => {
           props.onDelete(note.id);
         }}
-      >
-        <DeleteIcon />
-      </button>
-      <button
-        onClick={() => {
-          props.onUpdate(note.id);
+      />
+
+      {/* Edit button turns note editable and check circle button turns it off */}
+      <Button
+        type="edit"
+        id={note.id}
+        editable={editable}
+        onEdit={() => {
+          setEditable(true);
         }}
-      >
-        <EditIcon />
-      </button>
+        onSubmit={() => {
+          setEditable(false);
+        }}
+      />
     </div>
   );
 }

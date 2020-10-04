@@ -57,12 +57,14 @@ footer p {
   float: left;
 }
 
-.note h1 {
+.note h1,
+input.note-title {
   font-size: 1.1em;
   margin-bottom: 6px;
 }
 
-.note p {
+.note p,
+textarea.note-content {
   font-size: 1.1em;
   margin-bottom: 10px;
   white-space: pre-wrap;
@@ -90,16 +92,19 @@ form.input-area {
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
 
-input,
-textarea {
+input.note-title,
+textarea.note-content,
+h1.note-title,
+p.note-content {
   width: 100%;
-  border: none;
   padding: 4px;
-  outline: none;
-  font-size: 1.2em;
+  border: 1px solid #fff;
+  outline: 0;
+  font-size: 1.1em;
   font-family: inherit;
   resize: none;
   width: 100%;
+  overflow: hidden;
 }
 
 button.input-area {

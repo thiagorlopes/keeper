@@ -1,47 +1,59 @@
 import React, { useState } from "react";
-import AddIcon from "@material-ui/icons/Add";
+import Button from "./Button";
 
 function InputArea(props) {
-  // Input and text area are initially blank
+  // Input and textarea are initially blank
   const [newNote, setNewNote] = useState({
     id: 0,
-    editable: false,
     title: "",
     content: "",
   });
 
-  // Change content of new note state
+  // Id grows for each added note for ensuring uniqueness of key
+  const [nextId, setNextId] = useState(0);
+
+  function increaseNextId(id) {
+    setNextId((prevId) => {
+      return prevId + 1;
+    });
+  }
+
+  // Set id for new note and input or textarea value according to name: title or content
   function handleChange(event) {
     const { name, value } = event.target;
 
     setNewNote((prevNote) => {
       return {
         ...prevNote,
-        id: props.lastId,
+        id: nextId,
         [name]: value,
       };
     });
   }
 
-  // Pass new note to 'App' for inserting on array and clear input area
+  // Pass new note to 'App' for inserting on array
   function submitNote(event) {
     props.onAdd(newNote);
 
-    props.increaseLastId();
-
+    // Clear input area and increase id for next value
     setNewNote((prevNote) => {
-      return { ...prevNote, id: props.lastId, title: "", content: "" };
+      return { ...prevNote, title: "", content: "" };
     });
+
+    increaseNextId();
   }
 
   // Render InputArea
   return (
     <div>
-      <form className="input-area">
+      <form className="input-area" required>
         <input
           autoFocus
           className="note-title"
           onChange={handleChange}
+          onKeyPress={(e) => {
+            e.key === "Enter" && e.preventDefault();
+          }}
           value={newNote.title}
           name="title"
           placeholder="Title"
@@ -54,9 +66,12 @@ function InputArea(props) {
           placeholder="Take a note..."
           rows="3"
         />
-        <button className="input-area" type="button" onClick={submitNote}>
-          <AddIcon />
-        </button>
+
+        <Button
+          type="add"
+          className="input-area"
+          onAdd={newNote.title !== "" ? submitNote : null}
+        />
       </form>
     </div>
   );
