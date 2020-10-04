@@ -16,7 +16,8 @@ I learned in [The Complete 2020 Web Development Bootcamp](https://www.udemy.com/
 
 In order to deepen my knowledge on the technologies learned in the course, I decided to create a fullstack application with Create, Read, Update and Delete functionalities.
 
-![Keeper demo](https://user-images.githubusercontent.com/24622893/95029824-7184ab80-0681-11eb-8f2d-abdd103e8e35.png)
+![Keeper demo](https://user-images.githubusercontent.com/24622893/95029982-8a419100-0682-11eb-83ff-583dec062686.png)
+
 
 ### Technologies
 
