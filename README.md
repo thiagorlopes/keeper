@@ -10,7 +10,7 @@ Simple note taking app created with React, Node, Express and PostgreSQL
 
 ### General info
 
-This project is a simple note taking app inspired by the Google Keep.
+This project is a simple note taking app inspired by the [Google Keep](https://keep.google.com/).
 
 I learned in [The Complete 2020 Web Development Bootcamp](https://www.udemy.com/course/the-complete-web-development-bootcamp/) how to create the Add and Delete notes functionality for this app in React.
 
@@ -38,7 +38,7 @@ $ npm install
 $ npm start
 ```
 
-Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
@@ -49,7 +49,7 @@ $ npm install
 $ npm start
 ```
 
-Open [http://localhost:3000](http://localhost:9000) to view it in the browser.
+Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
 
 The following table shows an overview of the REST APIs that are exported:
 
