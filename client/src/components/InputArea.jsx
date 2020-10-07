@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Switch, Route, Link } from "react-router-dom";
+import NoteDataService from "../services/NoteService";
 import Button from "./Button";
 
 function InputArea(props) {
   // Input and textarea are initially blank
   const [newNote, setNewNote] = useState({
-    id: 0,
+    id: 1,
     title: "",
     content: "",
   });
@@ -31,9 +33,28 @@ function InputArea(props) {
     });
   }
 
-  // Pass new note to 'App' for inserting on array
+  // If database insertion is successful, use id in response body for new note
   function submitNote(event) {
-    props.onAdd(newNote);
+    NoteDataService.create(newNote)
+      .then((response) => {
+        const newId = response.data.id;
+
+        // Clears input area for new input
+        setNewNote((prevNote) => {
+          return {
+            ...prevNote,
+            title: "",
+            content: "",
+          };
+        });
+
+        console.log(response.data);
+        // Pass new note to App.jsx for inserting in array
+        props.onAdd(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
     // Clear input area and increase id for next value
     setNewNote((prevNote) => {
@@ -48,7 +69,6 @@ function InputArea(props) {
     <div>
       <form className="input-area" required>
         <input
-          autoFocus
           className="note-title"
           onChange={handleChange}
           onKeyPress={(e) => {

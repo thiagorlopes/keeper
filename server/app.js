@@ -17,12 +17,23 @@ const app = express();
 
 // allows serving of 3rd party origins (Cross-Origin Resource Sharing)
 var corsOptions = {
-  origin: "http://localhost:9000",
+  origin: "http://localhost:3000",
+  methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+  optionsSuccessStatus: 200,
+  credentials: true,
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "X-Requested-With",
+    "device-remember-token",
+    "Access-Control-Allow-Origin",
+    "Origin",
+    "Accept",
+  ],
 };
 
 app.use(cors(corsOptions));
 
-// parse requests for content-type: application/json and content-type: application/x-www-urlencoded
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 

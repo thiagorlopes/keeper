@@ -1,11 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
   const Note = sequelize.define("note", {
-    /*userId: {
-      type: Sequelize.STRING,
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    noteId: {
-      type: Sequelize.STRING,
-    },*/
     title: {
       type: Sequelize.STRING,
     },

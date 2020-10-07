@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NoteDataService from "../services/NoteService";
 import Header from "./Header";
 import InputArea from "./InputArea";
 import Note from "./Note";
@@ -7,6 +8,15 @@ import Footer from "./Footer";
 function App() {
   // Store all notes in an array
   const [notes, setNotes] = useState([]);
+
+  // Fill notes array with notes in database
+  NoteDataService.getAll()
+    .then((response) => {
+      setNotes(response.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 
   // Add new note to array
   function addNote(newNote) {
@@ -17,11 +27,19 @@ function App() {
 
   // Delete note by id
   function deleteNote(id) {
-    setNotes((prevNotes) => {
-      return prevNotes.filter((currentNote, index) => {
-        return currentNote.id !== id;
+    NoteDataService.remove(id)
+      .then((response) => {
+        console.log();
+
+        setNotes((prevNotes) => {
+          return prevNotes.filter((currentNote, index) => {
+            return currentNote.id !== id;
+          });
+        });
+      })
+      .catch((e) => {
+        console.log(e);
       });
-    });
   }
 
   // Render App
