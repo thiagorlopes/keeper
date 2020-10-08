@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NoteDataService from "../services/NoteService";
 import Header from "./Header";
 import InputArea from "./InputArea";
@@ -10,13 +10,15 @@ function App() {
   const [notes, setNotes] = useState([]);
 
   // Fill notes array with notes in database
-  NoteDataService.getAll()
-    .then((response) => {
-      setNotes(response.data);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+  useEffect(() => {
+    NoteDataService.getAll()
+      .then((response) => {
+        setNotes(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   // Add new note to array
   function addNote(newNote) {
@@ -29,8 +31,6 @@ function App() {
   function deleteNote(id) {
     NoteDataService.remove(id)
       .then((response) => {
-        console.log();
-
         setNotes((prevNotes) => {
           return prevNotes.filter((currentNote, index) => {
             return currentNote.id !== id;

@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
 import NoteDataService from "../services/NoteService";
 import Button from "./Button";
 
@@ -11,15 +10,6 @@ function InputArea(props) {
     content: "",
   });
 
-  // Id grows for each added note for ensuring uniqueness of key
-  const [nextId, setNextId] = useState(0);
-
-  function increaseNextId(id) {
-    setNextId((prevId) => {
-      return prevId + 1;
-    });
-  }
-
   // Set id for new note and input or textarea value according to name: title or content
   function handleChange(event) {
     const { name, value } = event.target;
@@ -27,18 +17,15 @@ function InputArea(props) {
     setNewNote((prevNote) => {
       return {
         ...prevNote,
-        id: nextId,
         [name]: value,
       };
     });
   }
 
-  // If database insertion is successful, use id in response body for new note
+  // Attempts to create note with controller
   function submitNote(event) {
     NoteDataService.create(newNote)
       .then((response) => {
-        const newId = response.data.id;
-
         // Clears input area for new input
         setNewNote((prevNote) => {
           return {
@@ -48,20 +35,14 @@ function InputArea(props) {
           };
         });
 
-        console.log(response.data);
         // Pass new note to App.jsx for inserting in array
+        console.log(response.data);
+
         props.onAdd(response.data);
       })
       .catch((e) => {
         console.log(e);
       });
-
-    // Clear input area and increase id for next value
-    setNewNote((prevNote) => {
-      return { ...prevNote, title: "", content: "" };
-    });
-
-    increaseNextId();
   }
 
   // Render InputArea

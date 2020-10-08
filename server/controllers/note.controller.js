@@ -67,7 +67,6 @@ exports.update = (req, res) => {
     where: { id: id },
   })
     .then((num) => {
-      console.log("teste");
       if (num == 1) {
         res.send({
           message: "Note updated successfully.",

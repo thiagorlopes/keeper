@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import NoteDataService from "../services/NoteService";
 import NoteTitle from "./NoteTitle";
 import NoteContent from "./NoteContent";
 import Button from "./Button";
@@ -18,7 +19,7 @@ function Note(props) {
 
   // Handle event passed by input or textarea
   function handleChange(e) {
-    let minHeight = 82;
+    let minHeight = 150;
     let newHeight = e.target.scrollHeight;
 
     newHeight = newHeight < minHeight ? minHeight : newHeight;
@@ -37,27 +38,23 @@ function Note(props) {
     setContentHeight(newHeight);
   }
 
-  // Ref for accessing the note's div node
-  const node = useRef(null);
+  function updateNoteService() {
+    console.log(note);
+    // Update note through axios
+    NoteDataService.update(note.id, note)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
-  // Check if user clicks outside the node and turns off editing if so
-  const handleClickOutside = (e) => {
-    if (node.current && !node.current.contains(e.target)) {
-      setEditable(false);
-    }
-  };
-
-  // Call callback after every render (similar to componentDidMount and componentDidUnmount)
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
+  // Ref for acesssing note content text area
 
   // Render Note
   return (
-    <div className="note" ref={node}>
+    <div className="note">
       <form>
         <NoteTitle
           title={note.title}
@@ -91,6 +88,7 @@ function Note(props) {
           setEditable(true);
         }}
         onSubmit={() => {
+          updateNoteService();
           setEditable(false);
         }}
       />
