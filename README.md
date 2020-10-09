@@ -62,7 +62,16 @@ The following table shows an overview of the REST APIs that are exported:
 | DELETE  | notes     | remove all Notes  |
 | DELETE  | notes/:id | remove Note by id |
 
-The connection of the client and server through the API is in implementation.
+### To Do
+
+* Insert cancel button for editing mode; 
+* Fix auto resize textarea implementation;
+* Remove scroll bar from body when editing;
+* Work on placement of notes in home screen;
+* Create user schema;
+* Add login and register pages;
+* Implement authentication system;
+* Create mailer system for email confirmation.
 
 # Keeper
 
