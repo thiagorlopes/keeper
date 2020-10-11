@@ -1,24 +1,15 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import AutoTextArea from "./AutoTextArea";
 
 function NoteContent(props) {
   return (
     <div>
       {props.editable && (
-        <textarea
+        <AutoTextArea
+          onChange={props.onChange}
           className="note-content"
-          value={props.content}
-          onChange={(e) => {
-            props.onChange(e);
-          }}
-          onClick={(e) => {
-            props.onChange(e);
-          }}
-          name="content"
-          style={{
-            height: props.height + "px",
-            outline: 0,
-            border: "1px solid rgb(138, 137, 137)",
-          }}
+          content={props.content}
+          rows="1"
         />
       )}
 

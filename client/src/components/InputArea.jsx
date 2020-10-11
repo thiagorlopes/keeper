@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NoteDataService from "../services/NoteService";
 import Button from "./Button";
+import AutoTextArea from "./AutoTextArea";
 
 function InputArea(props) {
   // Input and textarea are initially blank
@@ -59,12 +60,13 @@ function InputArea(props) {
           name="title"
           placeholder="Title"
         />
-        <textarea
-          className="note-content"
+
+        <AutoTextArea
           onChange={handleChange}
-          value={newNote.content}
+          className="note-content"
           name="content"
-          placeholder="Take a note..."
+          content={newNote.content}
+          inputArea={true}
           rows="3"
         />
 

@@ -18,7 +18,6 @@ In order to deepen my knowledge on the technologies learned in the course, I dec
 
 ![Keeper demo](https://user-images.githubusercontent.com/24622893/95029982-8a419100-0682-11eb-83ff-583dec062686.png)
 
-
 ### Technologies
 
 Project is created with:
@@ -64,14 +63,11 @@ The following table shows an overview of the REST APIs that are exported:
 
 ### To Do
 
-* Insert cancel button for editing mode; 
-* Fix auto resize textarea implementation;
-* Remove scroll bar from body when editing;
-* Work on placement of notes in home screen;
-* Create user schema;
-* Add login and register pages;
-* Implement authentication system;
-* Create mailer system for email confirmation.
+- Work on placement of notes in home screen;
+- Create user schema;
+- Add login and register pages;
+- Implement authentication system;
+- Create mailer system for email confirmation.
 
 # Keeper
 

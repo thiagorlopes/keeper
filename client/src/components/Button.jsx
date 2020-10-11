@@ -3,6 +3,8 @@ import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 
 function Button(props) {
   switch (props.type) {
@@ -33,7 +35,7 @@ function Button(props) {
           {/* Calls onSubmit in Note.jsx when clicked */}
           {props.editable && (
             <button type="button" onClick={props.onSubmit}>
-              <CheckCircleIcon />
+              <CheckIcon />
             </button>
           )}
         </div>
@@ -47,6 +49,13 @@ function Button(props) {
           </button>
         </div>
       );
+    case "cancel":
+      // Render cancel button in Note.jsx
+      return (
+        <button onClick={props.onCancel}>
+          <CloseIcon />
+        </button>
+      )
     default:
       console.log("no button informed");
   }

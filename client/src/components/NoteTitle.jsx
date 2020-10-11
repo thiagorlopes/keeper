@@ -1,5 +1,11 @@
 import React from "react";
 
+const inputStyle = {
+  fontWeight: "bold",
+  outline: 0,
+  border: "1px solid rgb(138, 137, 137)",
+};
+
 function NoteTitle(props) {
   return (
     <div>
@@ -12,11 +18,7 @@ function NoteTitle(props) {
           onKeyPress={(e) => {
             e.key === "Enter" && e.preventDefault();
           }}
-          style={{
-            fontWeight: "bold",
-            outline: 0,
-            border: "1px solid rgb(138, 137, 137)",
-          }}
+          style={inputStyle}
         />
       )}
 
