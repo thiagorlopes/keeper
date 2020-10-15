@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, CSSProperties } from "react";
+import React, { useState } from "react";
 import NoteDataService from "../services/NoteService";
 import NoteTitle from "./NoteTitle";
 import NoteContent from "./NoteContent";

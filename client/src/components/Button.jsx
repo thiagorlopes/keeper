@@ -1,7 +1,6 @@
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
