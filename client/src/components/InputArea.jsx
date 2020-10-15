@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import NoteDataService from "../services/NoteService";
 import Button from "./Button";
 import AutoTextArea from "./AutoTextArea";
@@ -23,6 +23,14 @@ function InputArea(props) {
     });
   }
 
+  // Focus input after initial render of InputArea
+  const [toggleFocus, setToggleFocus] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [toggleFocus]);
+
   // Attempts to create note with controller
   function submitNote(event) {
     NoteDataService.create(newNote)
@@ -37,9 +45,9 @@ function InputArea(props) {
         });
 
         // Pass new note to App.jsx for inserting in array
-        console.log(response.data);
-
         props.onAdd(response.data);
+
+        setToggleFocus(!toggleFocus);
       })
       .catch((e) => {
         console.log(e);
@@ -51,6 +59,7 @@ function InputArea(props) {
     <div>
       <form className="input-area" required>
         <input
+          ref={inputRef}
           className="note-title"
           onChange={handleChange}
           onKeyPress={(e) => {
