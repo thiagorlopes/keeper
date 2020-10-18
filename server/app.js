@@ -17,7 +17,7 @@ const app = express();
 
 // allows serving of 3rd party origins (Cross-Origin Resource Sharing)
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://127.0.0.1:3000",
   methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
   optionsSuccessStatus: 200,
   credentials: true,
@@ -43,9 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // setup database connection
 const db = require("./models");
-db.sequelize.sync({ force: false }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+db.sequelize.sync();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
