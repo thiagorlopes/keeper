@@ -1,4 +1,4 @@
-const notes = require("../controllers/note.controller.js");
+const notes = require("../controllers/notes_controller.js");
 
 var router = require("express").Router();
 

@@ -12,7 +12,6 @@ body {
   height: 100%;
   position: relative;
   background: #eee;
-  padding: 0 16px;
 }
 
 #root {
@@ -30,10 +29,20 @@ header {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
-header h1 {
+header h1,
+header button {
+  display: inline-block;
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+}
+
+header button {
+  background: #f5ba13;
+  border: none;
+  float: right;
+  font-size: 1.2rem;
+  padding: 0.5%;
 }
 
 footer {
@@ -72,11 +81,15 @@ textarea.note-content {
 }
 
 .note button {
+  background: #fff;
+  color: #f5ba13;
+}
+
+.note button,
+header button {
   position: relative;
   float: right;
   margin-right: 10px;
-  background: #fff;
-  color: #f5ba13;
   border: none;
   cursor: pointer;
   outline: none;
