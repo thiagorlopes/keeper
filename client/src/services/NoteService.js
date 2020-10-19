@@ -1,6 +1,10 @@
 import http from "../utils/http-common";
+require("dotenv").config();
 
-const API_URL = "http://127.0.0.1:9000/notes/";
+const endpoint = process.env.REACT_APP_API_ENDPOINT || "http://localhost:9000";
+
+const API_URL = endpoint + "/notes/";
+console.log(API_URL);
 
 const create = (data) => {
   return http.post(API_URL, data);
