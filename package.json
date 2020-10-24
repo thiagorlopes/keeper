@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "12.9.0",
+    "npm": "6.10.2"
+  },
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon -r dotenv/config ./bin/www"
+    "dev": "nodemon -r dotenv/config ./bin/www",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [
     "nodejs",
@@ -21,7 +26,6 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "pg": "^8.3.3",
@@ -29,6 +33,7 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.5"
   }
 }

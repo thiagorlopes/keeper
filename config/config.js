@@ -24,6 +24,7 @@ module.exports = {
     database: "keeper_prod",
     port: 5432,
     dialect: 'postgres',
+    connectionString: process.env.DATABASE_URL,
     maxConcurrentQueries: 100,
     dialectOptions: {
         ssl: {

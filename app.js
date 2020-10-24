@@ -16,8 +16,9 @@ const { timeStamp } = require("console");
 const app = express();
 
 // allows serving of 3rd party origins (Cross-Origin Resource Sharing)
+const client = process.env.CLIENT_URL || "http://localhost:3000";
 var corsOptions = {
-  origin: "http://127.0.0.1:3000",
+  origin: client,
   methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
   optionsSuccessStatus: 200,
   credentials: true,
@@ -33,6 +34,10 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
