@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/* HTML tags */
 html {
   font-family: "Montserrat", sans-serif;
 }
@@ -22,40 +23,63 @@ body {
   padding-bottom: 2.5rem;
 }
 
-header {
+/* Navigation bar */
+.navbar {
   background-color: #f5ba13;
+  color: #fff;
+  font-family: "Mclaren", cursive;
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
-header h1,
-header button {
-  display: inline-block;
+.navbar-light .navbar-nav .nav-link,
+.nav-link h1 {
   color: #fff;
-  font-family: "McLaren", cursive;
-  font-weight: 200;
 }
 
-header button {
-  background: #f5ba13;
-  border: none;
-  float: right;
-  font-size: 1.2rem;
-  padding: 0.5%;
+/* Input area */
+form.input-area {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
 
-footer {
-  position: absolute;
-  text-align: center;
-  bottom: 0;
+input.note-title,
+textarea.note-content,
+h1.note-title,
+p.note-content {
   width: 100%;
-  height: 2.5rem;
+  padding: 4px;
+  border: 1px solid #fff;
+  outline: 0;
+  font-size: 1.1em;
+  font-family: inherit;
+  resize: none;
+  width: 100%;
+  overflow: hidden;
 }
 
-footer p {
-  color: #ccc;
+button.input-area {
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  background: #f5ba13;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
 }
+
+/* Notes */
 .note {
   background: #fff;
   border-radius: 7px;
@@ -95,42 +119,20 @@ header button {
   outline: none;
 }
 
-form.input-area {
-  position: relative;
-  width: 480px;
-  margin: 30px auto 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 7px;
-  box-shadow: 0 1px 5px rgb(138, 137, 137);
+/* 404 Page */
+p {
+  padding: 2em 1em 0;
 }
 
-input.note-title,
-textarea.note-content,
-h1.note-title,
-p.note-content {
-  width: 100%;
-  padding: 4px;
-  border: 1px solid #fff;
-  outline: 0;
-  font-size: 1.1em;
-  font-family: inherit;
-  resize: none;
-  width: 100%;
-  overflow: hidden;
-}
-
-button.input-area {
+/* Footer */
+footer {
   position: absolute;
-  right: 18px;
-  bottom: -18px;
-  background: #f5ba13;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  outline: none;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+footer p {
+  color: #ccc;
 }

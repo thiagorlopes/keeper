@@ -1,67 +1,48 @@
-import React, { useState, useEffect } from "react";
-import NoteDataService from "../services/NoteService";
-import Header from "./Header";
-import InputArea from "./InputArea";
-import Note from "./Note";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Home from "./Home";
+import Login from "./Login";
+import Register from "./Register";
+import NotFound from "./NotFound";
 import Footer from "./Footer";
 
 function App() {
-  // Store all notes in an array
-  const [notes, setNotes] = useState([]);
-
-  // Fill notes array with notes in database
-  useEffect(() => {
-    NoteDataService.getAll()
-      .then((response) => {
-        setNotes(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
-  // Add new note to array
-  function addNote(newNote) {
-    setNotes((prevNotes) => {
-      return [...prevNotes, newNote];
-    });
-  }
-
-  // Delete note by id
-  function deleteNote(id) {
-    NoteDataService.remove(id)
-      .then((response) => {
-        setNotes((prevNotes) => {
-          return prevNotes.filter((currentNote, index) => {
-            return currentNote.id !== id;
-          });
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
-  // Render App
   return (
-    <div>
-      <Header />
-      <InputArea onAdd={addNote} />
-      {notes.map(function (note, index) {
-        return (
-          <Note
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            content={note.content}
-            onDelete={deleteNote}
-          />
-        );
-      })}
-      <div className="footer">
+    <Router>
+      <div>
+        <nav className="navbar navbar-expand-lg navbar-light">
+          <Link to={"/"} className="nav-link">
+            <h1>Keeper</h1>
+          </Link>
+          <ul className="navbar-nav navbar-right ml-auto">
+            <li>
+              <Link to={"/"} className="nav-link">
+                {" "}
+                Home{" "}
+              </Link>
+            </li>
+            <li>
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link to={"/register"} className="nav-link">
+                Register
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route component={NotFound} />
+        </Switch>
+
         <Footer />
       </div>
-    </div>
+    </Router>
   );
 }
 

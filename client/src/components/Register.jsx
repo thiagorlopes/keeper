@@ -1,7 +1,12 @@
-import React from "React";
+import React from "react";
 
 function Register() {
-  return <div>Register</div>;
+  // Render Register page
+  return (
+    <div>
+      <p>Register form</p>
+    </div>
+  );
 }
 
 export default Register;

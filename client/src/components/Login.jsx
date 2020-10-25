@@ -1,7 +1,12 @@
 import React from "react";
 
 function Login() {
-  return <div>Login</div>;
+  // Render Login page
+  return (
+    <div>
+      <p>Login form </p>
+    </div>
+  );
 }
 
 export default Login;
