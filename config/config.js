@@ -18,13 +18,8 @@ module.exports = {
   },
 
   "production": {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    host: process.env.DB_HOST,
-    database: "keeper_prod",
-    port: 5432,
-    dialect: 'postgres',
-    connectionString: process.env.DATABASE_URL,
+    use_env_variable: "DATABASE_URL",
+    dialect: "postgres",
     maxConcurrentQueries: 100,
     dialectOptions: {
         ssl: {

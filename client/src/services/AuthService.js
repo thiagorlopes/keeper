@@ -1,8 +1,5 @@
 import axios from "axios";
 
-//const endpoint = process.env.REACT_APP_API_ENDPOINT || "http://localhost:9000";
-//const API_URL = endpoint + "/notes/auth/";
-
 class AuthService {
     login(username, password) {
         return axios
