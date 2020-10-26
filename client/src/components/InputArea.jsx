@@ -57,7 +57,7 @@ function InputArea(props) {
   // Render InputArea
   return (
     <div>
-      <form className="input-area" required>
+      <form className="create-note-form" required>
         <input
           ref={inputRef}
           className="note-title"
@@ -81,7 +81,7 @@ function InputArea(props) {
 
         <Button
           type="add"
-          className="input-area"
+          className="create-note-form"
           onAdd={newNote.title !== "" ? submitNote : null}
         />
       </form>

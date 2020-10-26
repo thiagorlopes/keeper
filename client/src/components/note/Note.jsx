@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import NoteDataService from "../services/NoteService";
+import NoteDataService from "../../services/NoteService";
 import NoteTitle from "./NoteTitle";
 import NoteContent from "./NoteContent";
-import Button from "./Button";
+import Button from "../Button";
 
 function Note(props) {
   // Set initial content to data in App's notes array

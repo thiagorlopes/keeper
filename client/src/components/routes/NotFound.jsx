@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function NotFound() {
   return (
     <div>
-      <p>That page doesn't exist or is unavailable</p>
+      <p className="not-found">That page doesn't exist or is unavailable</p>
       <Link to={"/"} className="nav-link">
-        Return Home
+        Return to Home
       </Link>
     </div>
   );

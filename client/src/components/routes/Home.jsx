@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import NoteDataService from "../services/NoteService";
-import InputArea from "./InputArea";
-import Note from "./Note";
+import NoteDataService from "../../services/NoteService";
+import InputArea from "../InputArea";
+import Note from "../note/Note";
 
 function Home() {
   // Store all notes in an array

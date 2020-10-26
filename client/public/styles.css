@@ -38,8 +38,8 @@ body {
   color: #fff;
 }
 
-/* Input area */
-form.input-area {
+/* Create note form */
+form.create-note-form {
   position: relative;
   width: 480px;
   margin: 30px auto 20px auto;
@@ -64,7 +64,7 @@ p.note-content {
   overflow: hidden;
 }
 
-button.input-area {
+button.create-note-form {
   position: absolute;
   right: 18px;
   bottom: -18px;
@@ -119,8 +119,40 @@ header button {
   outline: none;
 }
 
-/* 404 Page */
-p {
+/* Login and Signup pages */
+.form-title {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.custom-form {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+
+.form-control {
+  margin-bottom: 0.5em;
+}
+
+.is-danger {
+  border-color: #bb2124;
+}
+
+.custom-form .btn {
+  margin-top: 1em;
+}
+
+.btn-warning {
+  color: white;
+}
+
+/* 404 page */
+.not-found {
   padding: 2em 1em 0;
 }
 

@@ -3,7 +3,7 @@ import axios from "axios";
 class AuthService {
     login(username, password) {
         return axios
-            .post("/signin", {
+            .post("/login", {
                 username,
                 password
             })
@@ -20,7 +20,7 @@ class AuthService {
         localStorage.removeItem("user");
     }
 
-    register(username, email, password) {
+    signup(username, email, password) {
         return axios.post("/signup", {
             username,
             email,
