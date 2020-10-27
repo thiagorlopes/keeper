@@ -1,4 +1,5 @@
 import React from "react";
+import UserDataService from "../../services/UserService";
 import useForm from "../helpers/useForm";
 import validate from "../helpers/LoginFormValidationRules";
 
@@ -9,7 +10,15 @@ const SignUp = (props) => {
   );
 
   function login() {
-    console.log(values);
+    UserDataService.create(values)
+      .then((response) => {
+        props.onLogin(response.id);
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
     console.log("No errors, submit callback called.");
   }
 
@@ -47,7 +56,7 @@ const SignUp = (props) => {
             <input
               className={`form-control ${errors.password && "is-danger"}`}
               type="password"
-              name="password1"
+              name="password"
               onChange={handleChange}
             />
             {errors.password && (
@@ -59,7 +68,7 @@ const SignUp = (props) => {
             <input
               className={`form-control ${errors.password && "is-danger"}`}
               type="password"
-              name="password2"
+              name="passwordConfirmation"
               onChange={handleChange}
             />
           </div>

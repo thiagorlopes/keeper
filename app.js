@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // setup database connection
 const db = require("./models");
-db.sequelize.sync();
+db.sequelize.sync({force: true});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

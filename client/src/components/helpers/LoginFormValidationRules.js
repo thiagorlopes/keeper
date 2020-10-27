@@ -13,11 +13,11 @@ function validate(values) {
         errors.email = "Email address is invalid";
     }
 
-    if (!values.password1) {
+    if (!values.password) {
         errors.password = "Password is required";
-    } else if (values.password1.length < 8) {
-        errors.password = "Password must be 8 or more characters";
-    } else if(values.password1 !== values.password2) {
+    } else if (values.password.length < 6) {
+        errors.password = "Password must be 6 or more characters";
+    } else if(values.password !== values.passwordConfirmation) {
         errors.password = "Passwords must match"
     }
 
