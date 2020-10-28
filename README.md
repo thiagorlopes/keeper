@@ -2,6 +2,8 @@
 
 Simple note taking app created with React, Node, Express and PostgreSQL
 
+Production build: https://herokeeper.herokuapp.com/
+
 ## Table of contents
 
 - [General info](#general-info)
@@ -28,27 +30,14 @@ Project is created with:
 - [PostgreSQL 12](https://www.postgresql.org/)
 
 ### Setup
-
-To run this project, install it locally using npm:
+#### Server
+You can install the server locally by running npm:
 
 ```
-$ cd ./client
 $ npm install
-$ npm start
+$ npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-```
-$ cd ./server
-$ npm install
-$ npm start
-```
-
-Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
+The server will run on port 9000.
 
 The following table shows an overview of the REST APIs that are exported:
 
@@ -61,10 +50,24 @@ The following table shows an overview of the REST APIs that are exported:
 | DELETE  | notes     | remove all Notes  |
 | DELETE  | notes/:id | remove Note by id |
 
+#### Client
+To run this project, install the client locally by running npm:
+
+```
+$ cd ./client
+$ npm install
+$ npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+
 ### To Do
 
 - Work on placement of notes in home screen;
-- Create user schema;
 - Add login and register pages;
 - Implement authentication system;
 - Create mailer system for email confirmation.
@@ -72,3 +75,4 @@ The following table shows an overview of the REST APIs that are exported:
 # Keeper
 
 Thiago Rodrigues © 2020
+
