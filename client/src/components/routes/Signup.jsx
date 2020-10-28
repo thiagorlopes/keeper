@@ -3,23 +3,15 @@ import UserDataService from "../../services/UserService";
 import useForm from "../helpers/useForm";
 import validate from "../helpers/LoginFormValidationRules";
 
-const SignUp = (props) => {
+function SignUp(props) {
   const { values, errors, handleChange, handleSubmit } = useForm(
-    login,
+    createUser,
     validate
   );
 
-  function login() {
-    UserDataService.create(values)
-      .then((response) => {
-        props.onLogin(response.id);
-        console.log(response);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
-    console.log("No errors, submit callback called.");
+  function createUser() {
+    UserDataService.signup(props.onLogin, values);
+    console.log("No validations errors, called signup.");
   }
 
   // Render Signup page
@@ -79,6 +71,6 @@ const SignUp = (props) => {
       </form>
     </div>
   );
-};
+}
 
 export default SignUp;

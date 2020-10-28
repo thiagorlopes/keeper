@@ -1,14 +1,29 @@
 import http from "../utils/http-common";
 
-const create = (data) => {
-  return http.post("/users/", data);
+const signup = (callback, data) => {
+  return http.post("/users/signup", data)
+    .then((response) => {
+      callback(response.data.id);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 };
 
-const get = (userId) => {
-  return http.get("/users/" + userId);
+const login = (callback, data) => {
+  return http.post("/users/login", data)
+    .then((response) => {
+      console.log("id: " + response.data.id);
+      if(response) {
+        callback(response.data.id);
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 };
 
 export default {
-  create,
-  get
+  signup,
+  login
 };

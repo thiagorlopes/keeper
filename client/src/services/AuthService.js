@@ -1,36 +1,40 @@
 import axios from "axios";
+import authHeader from "../utils/auth-header";
 
-class AuthService {
-    login(username, password) {
-        return axios
-            .post("/login", {
-                username,
-                password
-            })
-            .then(response => {
-                if(response.data.accessToken) {
-                    localStorage.setItem("user", JSON.stringify(response.data));
-                }
+const signup = (username, email, password) => {
+  return axios.post("/auth/signup", {
+    username,
+    email,
+    password,
+  });
+};
 
-                return response.data;
-            });
-    }
+const login = (username, password) => {
+  return axios
+    .post("/auth/login", {
+      username,
+      password,
+    })
+    .then((response) => {
+      if (response.data.accessToken) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
 
-    logout() {
-        localStorage.removeItem("user");
-    }
+      return response.data;
+    });
+};
 
-    signup(username, email, password) {
-        return axios.post("/signup", {
-            username,
-            email,
-            password
-        });
-    }
+const logout = () => {
+  localStorage.removeItem("user");
+};
 
-    getCurrentUser() {
-        return JSON.parse(localStorage.getItem("user"));
-    }
-}
+const getCurrentUser = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};
 
-export default new AuthService();
+export default {
+  signup,
+  login,
+  logout,
+  getCurrentUser,
+};

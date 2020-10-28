@@ -32,15 +32,20 @@ exports.create = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  const id = req.params.userId;
+  const username = req.body.username;
+  const password = req.body.password;
 
-  Note.findByPk(userId)
+  User.findByPk(username)
     .then((data) => {
-      res.send(data);
+      if(username === data.username && password === data.password) {
+        res.send(data);
+      } else {
+        res.send(false);
+      }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving User with id=" + userId,
+        message: "Error retrieving User with username=" + username,
       });
     });
 };

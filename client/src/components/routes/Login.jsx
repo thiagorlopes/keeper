@@ -1,18 +1,18 @@
 import React, { useState } from "react";
+import UserDataService from "../../services/UserService";
 
-function Login() {
-  const [input, setInput] = useState({});
+function Login(props) {
+  const [values, setValues] = useState({});
 
   function handleSubmit(e) {
-    if (e) {
-      e.preventDefault();
-    }
+    if (e) e.preventDefault();
+    UserDataService.login(props.onLogin, values);
   }
 
   function handleChange(e) {
     e.persist();
-    setInput((input) => ({
-      ...input,
+    setValues((values) => ({
+      ...values,
       [e.target.name]: e.target.value,
     }));
   }
