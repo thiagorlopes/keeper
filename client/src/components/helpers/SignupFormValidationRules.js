@@ -17,7 +17,7 @@ function validate(values) {
         errors.password = "Password is required";
     } else if (values.password.length < 6) {
         errors.password = "Password must be 6 or more characters";
-    } else if(values.password !== values.passwordConfirmation) {
+    } else if(values.password !== values.password2) {
         errors.password = "Passwords must match"
     }
 

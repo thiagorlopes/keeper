@@ -55,7 +55,7 @@ exports.findOne = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Note with id=" + id,
+        message: `Error retrieving Note with id=${id}`,
       });
     });
 };
@@ -73,13 +73,13 @@ exports.update = (req, res) => {
         });
       } else {
         res.send({
-          message: "Cannot update Note with id=" + id,
+          message: `Cannot update Note with id=${id}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Note with id=" + id,
+        message: `Error updating note with id=${id}`,
       });
     });
 };
@@ -91,19 +91,20 @@ exports.delete = (req, res) => {
     where: { id: id },
   })
     .then((num) => {
+      console.log(`num: ${num}`);
       if (num === 1) {
         res.send({
           message: "Note successfully deleted.",
         });
       } else {
         res.send({
-          message: "Cannot delete Note with id=${id}",
+          message: `Cannot delete Note with id=${id}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete tutorial with id=" + id,
+        message: `Could not delete tutorial with id=${id}`,
       });
     });
 };

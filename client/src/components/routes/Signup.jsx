@@ -1,7 +1,7 @@
 import React from "react";
 import UserDataService from "../../services/UserService";
 import useForm from "../helpers/useForm";
-import validate from "../helpers/LoginFormValidationRules";
+import validate from "../helpers/SignupFormValidationRules";
 
 function SignUp(props) {
   const { values, errors, handleChange, handleSubmit } = useForm(
@@ -29,8 +29,7 @@ function SignUp(props) {
               name="username"
               onChange={handleChange}
             />
-            {errors.username && (
-              <p style={{ color: "#bb2124" }}>{errors.username}</p>
+            {errors.username && (<p style={{ color: "#bb2124" }}>{errors.username}</p>
             )}
           </div>
           <div>
@@ -60,7 +59,7 @@ function SignUp(props) {
             <input
               className={`form-control ${errors.password && "is-danger"}`}
               type="password"
-              name="passwordConfirmation"
+              name="password2"
               onChange={handleChange}
             />
           </div>
