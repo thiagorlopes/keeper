@@ -29,8 +29,7 @@ function SignUp(props) {
               name="username"
               onChange={handleChange}
             />
-            {errors.username && (<p style={{ color: "#bb2124" }}>{errors.username}</p>
-            )}
+            {errors.username && (<p style={{ color: "#bb2124" }}>{errors.username}</p>)}
           </div>
           <div>
             <label>Email: </label>
@@ -50,9 +49,7 @@ function SignUp(props) {
               name="password"
               onChange={handleChange}
             />
-            {errors.password && (
-              <p style={{ color: "#bb2124" }}>{errors.password}</p>
-            )}
+            {errors.password && (<p style={{ color: "#bb2124" }}>{errors.password}</p>)}
           </div>
           <div>
             <label>Re-enter Password</label>

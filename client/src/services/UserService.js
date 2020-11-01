@@ -1,6 +1,5 @@
 import http from "../utils/http-common";
 
-
 const signup = (callback, data) => {
 
   return http.post("/users/signup", data).then((response) => {
@@ -24,6 +23,7 @@ const login = (callback, data) => {
       } else {
         console.log("wrong username or password");
       }
+
     })
     .catch((e) => {
       console.log(e);

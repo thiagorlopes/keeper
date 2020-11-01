@@ -50,7 +50,7 @@ module.exports = function(passport, user) {
         {
             usernameField: "username",
             passwordField: "password",
-            passReqToCallback: true 
+            passReqToCallback: true
         },
 
         function (req, username, password, done) {
