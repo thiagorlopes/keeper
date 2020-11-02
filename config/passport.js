@@ -97,6 +97,7 @@ module.exports = function(passport, user) {
     // retrieve user object with the key stored in session
     passport.deserializeUser(function (id, done) {
         User.findByPk(id).then(function (user) {
+            console.log("Deserializing id " + id);
             if (user) {
                 done(null, user.get());
             } else {

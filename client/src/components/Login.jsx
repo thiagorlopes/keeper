@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserDataService from "../../services/UserService";
+import UserDataService from "../services/UserService";
 
 function Login(props) {
   const [values, setValues] = useState({});
@@ -26,6 +26,7 @@ function Login(props) {
           <div>
             <label>Username: </label>
             <input
+              autoComplete="off"
               className="form-control"
               type="text"
               name="username"

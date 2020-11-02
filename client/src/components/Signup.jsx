@@ -1,7 +1,7 @@
 import React from "react";
-import UserDataService from "../../services/UserService";
-import useForm from "../helpers/useForm";
-import validate from "../helpers/SignupFormValidationRules";
+import UserDataService from "../services/UserService";
+import useForm from "./helpers/useForm";
+import validate from "./helpers/SignupFormValidationRules";
 
 function SignUp(props) {
   const { values, errors, handleChange, handleSubmit } = useForm(

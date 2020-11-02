@@ -1,5 +1,5 @@
 import React from "react";
-import AutoTextArea from "../AutoTextArea";
+import AutoTextArea from "./AutoTextArea";
 
 function NoteContent(props) {
   return (

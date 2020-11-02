@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
         if(err) {
           return next(err);
         }
-        return res.send({success: true, message: "authentication succeeded"});
+        return res.send({success: true, user_id: user.id, message: "authentication succeeded"});
       });
     })(req, res, next);
   });
@@ -34,7 +34,8 @@ module.exports = function(app, passport) {
         if(err) {
           return next(err);
         }
-        return res.send({success: true, message: "login succeeded"});
+
+        return res.send({success: true, userId: user.id, message: "login succeeded"});
       });
     })(req, res, next);
   });

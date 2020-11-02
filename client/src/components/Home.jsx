@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import NoteDataService from "../../services/NoteService";
-import InputArea from "../InputArea";
-import Note from "../note/Note";
+import NoteDataService from "../services/NoteService";
+import InputArea from "./InputArea";
+import Note from "./Note";
 
-function Home() {
+function Home(props) {
   // Store all notes in an array
   const [notes, setNotes] = useState([]);
 
@@ -43,12 +43,13 @@ function Home() {
   // Render App
   return (
     <div>
-      <InputArea onAdd={addNote} />
+      <InputArea userId={props.userId} onAdd={addNote} />
       {notes.map(function (note, index) {
         return (
           <Note
             key={note.id}
             id={note.id}
+            userId={props.userId}
             title={note.title}
             content={note.content}
             onDelete={deleteNote}

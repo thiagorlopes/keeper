@@ -22,9 +22,9 @@ app.set("view engine", "pug");
 // setup passport session
 app.use(
   session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
+    secret: process.env.SECRET, 
+    resave: false, 
+    saveUninitialized: false
   })
 );
 
@@ -32,9 +32,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // allows serving of 3rd party origins (Cross-Origin Resource Sharing)
-const client = process.env.CLIENT_URL || "http://localhost:3000";
 var corsOptions = {
-  origin: client,
+  origin: "/",
   methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
   optionsSuccessStatus: 200,
   credentials: true,
@@ -54,16 +53,16 @@ app.use(cors(corsOptions));
 // load models
 const models = require("./models");
 
+// load passport strategies
+require("./config/passport")(passport, models.user);
+
 // load routes
 indexRoute = require("./routes/index")(app);
 notesRoute = require("./routes/notes")(app);
 usersRoute = require("./routes/users")(app, passport);
 
-// load passport strategies
-require("./config/passport")(passport, models.user);
-
 // sync database
-models.sequelize.sync({force: true});
+models.sequelize.sync({force: false});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

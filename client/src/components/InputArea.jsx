@@ -6,6 +6,7 @@ import AutoTextArea from "./AutoTextArea";
 function InputArea(props) {
   // Input and textarea are initially blank
   const [newNote, setNewNote] = useState({
+    userId: props.userId,
     id: 1,
     title: "",
     content: "",
