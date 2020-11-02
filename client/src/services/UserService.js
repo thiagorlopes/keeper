@@ -31,7 +31,6 @@ const login = (callback, data) => {
       } else {
         console.log("wrong username or password");
       }
-
     })
     .catch((e) => {
       console.log(e);
