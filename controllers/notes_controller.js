@@ -4,6 +4,7 @@ const Op = db.Sequelize.Op;
 
 // Create and save a new note
 exports.create = (req, res) => {
+
   // Validate request
   if (!req.body.title) {
     res.status(400).send({
@@ -16,6 +17,7 @@ exports.create = (req, res) => {
   const note = {
     title: req.body.title,
     content: req.body.content,
+    user_id: req.user.id
   };
 
   // Save Note in the database
@@ -32,18 +34,19 @@ exports.create = (req, res) => {
 
 // Retrieve ALL notes
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.iLIke]: "%${title$" } } : null;
-
-  Note.findAll({ where: condition })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Error while retrieving notes.",
-      });
+  Note.findAll({ 
+    where: {
+      user_id: req.user.id
+    } 
+  })
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.status(500).send({
+      message: err.message || "Error while retrieving notes.",
     });
+  });
 };
 
 exports.findOne = (req, res) => {
@@ -55,7 +58,7 @@ exports.findOne = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Note with id=" + id,
+        message: `Error retrieving Note with id=${id}`,
       });
     });
 };
@@ -73,13 +76,13 @@ exports.update = (req, res) => {
         });
       } else {
         res.send({
-          message: "Cannot update Note with id=" + id,
+          message: `Cannot update Note with id=${id}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Note with id=" + id,
+        message: `Error updating note with id=${id}`,
       });
     });
 };
@@ -91,19 +94,20 @@ exports.delete = (req, res) => {
     where: { id: id },
   })
     .then((num) => {
+      console.log(`num: ${num}`);
       if (num === 1) {
         res.send({
           message: "Note successfully deleted.",
         });
       } else {
         res.send({
-          message: "Cannot delete Note with id=${id}",
+          message: `Cannot delete Note with id=${id}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete tutorial with id=" + id,
+        message: `Could not delete tutorial with id=${id}`,
       });
     });
 };

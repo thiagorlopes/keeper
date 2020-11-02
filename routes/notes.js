@@ -1,23 +1,21 @@
 const notes = require("../controllers/notes_controller.js");
 
-var router = require("express").Router();
+module.exports = function(app) {
+  // Create a new note
+  app.post("/notes", notes.create);
 
-// Create a new note
-router.post("/", notes.create);
+  // Retrieve all notes
+  app.get("/notes", notes.findAll);
 
-// Retrieve all notes
-router.get("/", notes.findAll);
+  // Retrieve a note with id
+  app.get("/notes/:id", notes.findOne);
 
-// Retrieve a note with id
-router.get("/:id", notes.findOne);
+  // Update a note with id
+  app.put("/notes/:id", notes.update);
 
-// Update a note with id
-router.put("/:id", notes.update);
+  // Delete all notes
+  app.delete("/notes", notes.deleteAll);
 
-// Delete all notes
-router.delete("/", notes.deleteAll);
-
-// Delete a note with id
-router.delete("/:id", notes.delete);
-
-module.exports = router;
+  // Delete a note with id
+  app.delete("/notes/:id", notes.delete);
+}

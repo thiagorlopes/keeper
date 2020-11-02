@@ -1,67 +1,53 @@
-import React, { useState, useEffect } from "react";
-import NoteDataService from "../services/NoteService";
-import Header from "./Header";
-import InputArea from "./InputArea";
-import Note from "./Note";
+import React, { useState, useLayoutEffect } from "react";
+import { Router, Route, Switch, useHistory } from "react-router-dom";
+import UserDataService from "../services/UserService";
+import Navbar from "./Navbar";
+import Home from "./Home";
+import Login from "./Login";
+import Signup from "./Signup";
+import NotFound from "./NotFound";
 import Footer from "./Footer";
 
 function App() {
-  // Store all notes in an array
-  const [notes, setNotes] = useState([]);
+  const [auth, setAuth] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const history = useHistory();
 
-  // Fill notes array with notes in database
-  useEffect(() => {
-    NoteDataService.getAll()
-      .then((response) => {
-        setNotes(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  useLayoutEffect(() => {
+    UserDataService.getCurrent(toggleAuth);
   }, []);
 
-  // Add new note to array
-  function addNote(newNote) {
-    setNotes((prevNotes) => {
-      return [...prevNotes, newNote];
-    });
+  function toggleAuth(isLoggedIn) {
+    setAuth(isLoggedIn);
   }
 
-  // Delete note by id
-  function deleteNote(id) {
-    NoteDataService.remove(id)
-      .then((response) => {
-        setNotes((prevNotes) => {
-          return prevNotes.filter((currentNote, index) => {
-            return currentNote.id !== id;
-          });
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  function handleLogin(currentUser) {
+    if(currentUser.success) {
+      setAuth(true);
+      setUserId(currentUser.userId);
+      history.push("/");
+    }
   }
 
-  // Render App
+  function handleLogout(currentUser) {
+    if(currentUser.success) {
+      setAuth(false);
+      setUserId(null);
+      history.push("/login");
+    }
+  }
+
   return (
-    <div>
-      <Header />
-      <InputArea onAdd={addNote} />
-      {notes.map(function (note, index) {
-        return (
-          <Note
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            content={note.content}
-            onDelete={deleteNote}
-          />
-        );
-      })}
-      <div className="footer">
-        <Footer />
-      </div>
-    </div>
+    <Router history={history}>
+      <Navbar auth={auth} onLogout={handleLogout} />
+      <Switch>
+        {auth && <Route exact path="/" component={() => <Home userId={userId} />}/>}
+        {!auth && (<Route path="/login" component={() => <Login onLogin={handleLogin} />}/>)}
+        {!auth && (<Route path="/signup" component={() => <Signup onLogin={handleLogin} />}/>)}
+        <Route component={NotFound} />
+      </Switch>
+      <Footer />
+    </Router>
   );
 }
 
