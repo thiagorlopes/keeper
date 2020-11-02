@@ -1,5 +1,4 @@
 var bCrypt = require("bcrypt");
-var passport = require("passport");
 
 module.exports = function(passport, user) {
     var User = user;

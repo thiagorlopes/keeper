@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const cors = require("cors");
 const createError = require("http-errors");
@@ -23,10 +24,13 @@ app.set("view engine", "pug");
 app.use(
   session({
     secret: process.env.SECRET, 
-    resave: false, 
-    saveUninitialized: false
+    resave: true, 
+    saveUninitialized: true,
+    duration: 30 * 60 * 1000
   })
 );
+
+app.use(cookieParser(process.env.SECRET));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,18 +38,7 @@ app.use(passport.session());
 // allows serving of 3rd party origins (Cross-Origin Resource Sharing)
 var corsOptions = {
   origin: "/",
-  methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-  optionsSuccessStatus: 200,
   credentials: true,
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-    "X-Requested-With",
-    "device-remember-token",
-    "Access-Control-Allow-Origin",
-    "Origin",
-    "Accept",
-  ],
 };
 
 app.use(cors(corsOptions));

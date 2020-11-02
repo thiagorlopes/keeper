@@ -1,5 +1,7 @@
 module.exports = function(app, passport) {
-  //app.get("/login", users_controller.login);
+  app.get("/users/current", function(req, res){
+    res.send(req.isAuthenticated());
+  });
 
   app.post("/users/signup", function(req, res, next) {
     passport.authenticate("local-signup", function(err, user) {
@@ -41,6 +43,7 @@ module.exports = function(app, passport) {
   });
 
   app.get("/users/logout", function (req, res) {
+      //console.log(req.session);
       console.log("logging out");
       req.session.destroy(function (err) {
           if (err) console.log(err)

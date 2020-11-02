@@ -14,8 +14,6 @@ function Navbar(props) {
       <Link to={"/"} className="nav-link"><h1>Keeper</h1></Link>
 
       <ul className="navbar-nav navbar-right ml-auto">
-        <Link to={"/"} className="nav-link">Home</Link>
-
         {/* Render login and signup if not auth and logout otherwise */}
         {!props.auth && (<Link to={"/login"} className="nav-link">Login</Link>)}
         {!props.auth && (<Link to={"/signup"} className="nav-link">Register</Link>)}

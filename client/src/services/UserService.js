@@ -1,5 +1,13 @@
 import http from "../utils/http-common";
 
+const getCurrent = (callback) => {
+  return http.get("users/current").then((response) => {
+    callback(response.data);
+  })
+  .catch((e) => {
+    console.log(e);
+  })
+}
 const signup = (callback, data) => {
 
   return http.post("/users/signup", data).then((response) => {
@@ -45,6 +53,7 @@ const logout = (callback) => {
 };
 
 export default {
+  getCurrent,
   signup,
   login,
   logout
