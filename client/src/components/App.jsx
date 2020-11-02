@@ -11,9 +11,10 @@ import Footer from "./Footer";
 function App() {
   const [auth, setAuth] = useState(false);
   const [userId, setUserId] = useState(null);
-  const history = useHistory();
+  const history = useHistory("/");
 
   useLayoutEffect(() => {
+    history.push("/");
     UserDataService.getCurrent(toggleAuth);
   }, []);
 

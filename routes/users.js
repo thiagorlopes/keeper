@@ -10,7 +10,7 @@ module.exports = function(app, passport) {
       }
 
       if(!user) {
-        return res.send(401, {success: false, message: "authentication failed"});
+        return res.status(401).send({success: false, message: "authentication failed"});
       }
 
       req.login(user, function(err) {
@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
       }
 
       if(!user) {
-        return res.send(401, {success: false, message: "login failed"});
+        return res.status(401).send({success: false, message: "login failed"});
       }
 
       req.login(user, function(err) {
