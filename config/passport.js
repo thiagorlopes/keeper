@@ -11,7 +11,7 @@ module.exports = function(passport, user) {
             passReqToCallback: true 
 
         }, function (req, username, password, done) {
-            console.log("Signup for ", username)
+            console.log("signup for ", username)
             var generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             }
@@ -21,23 +21,37 @@ module.exports = function(passport, user) {
                 }
             }).then(function (user) {
                 if (user) {
-                    return done(null, false, {
-                        message: "That username is already taken"
+                    console.log("username already exists");
+                    return done(null, {
+                        validationError: "username already exists"
                     });
                 } else {
-                    var userPassword = generateHash(password);
-                    var data = {
-                        email: req.body.email,
-                        username: req.body.username,
-                        password: userPassword,
-                    };
-
-                    User.create(data).then(function (newUser, created) {
-                        if (!newUser) {
-                            return done(null, false);
+                    User.findOne({
+                        where: {
+                            email: req.body.email
                         }
-                        if (newUser) {
-                            return done(null, newUser);
+                    }).then(function(user) {
+                        if (user) {
+                            console.log("email already exists");
+                            return done(null, {
+                                validationError: "email already exists"
+                            });
+                        } else {
+                            var userPassword = generateHash(password);
+                            var data = {
+                                email: req.body.email,
+                                username: req.body.username,
+                                password: userPassword,
+                            };
+
+                            User.create(data).then(function (newUser, created) {
+                                if (!newUser) {
+                                    return done(null, false);
+                                }
+                                if (newUser) {
+                                    return done(null, newUser);
+                                }
+                            });
                         }
                     });
                     }
@@ -58,7 +72,7 @@ module.exports = function(passport, user) {
             var isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);
             }
-            console.log("Logged to ", username)
+            console.log("logged to ", username)
             User.findOne({
                 where: {
                     username: username
@@ -66,13 +80,13 @@ module.exports = function(passport, user) {
             }).then(function (user) {
                 if (!user) {
                     return done(null, false, {
-                        message: "Username does not exist"
+                        message: "username does not exist"
                     });
                 }
 
                 if (!isValidPassword(user.password, password)) {
                     return done(null, false, {
-                        message: "Incorrect password."
+                        message: "incorrect password."
                     });
                 }
 
@@ -80,9 +94,9 @@ module.exports = function(passport, user) {
                 return done(null, userinfo);
             }).catch(function (err) {
 
-                console.log("Error: ", err);
+                console.log("error: ", err);
                 return done(null, false, {
-                    message: "Error during login"
+                    message: "error during login"
                 });
             });
         }
@@ -96,7 +110,7 @@ module.exports = function(passport, user) {
     // retrieve user object with the key stored in session
     passport.deserializeUser(function (id, done) {
         User.findByPk(id).then(function (user) {
-            console.log("Deserializing id " + id);
+            console.log("deserializing id " + id);
             if (user) {
                 done(null, user.get());
             } else {

@@ -24,6 +24,8 @@ function App() {
     if(currentUser.success) {
       setAuth(true);
       setUserId(currentUser.userId);
+    } else {
+      console.log("wrong username or password");
     }
   }
 
@@ -31,6 +33,8 @@ function App() {
     if(currentUser.success) {
       setAuth(false);
       setUserId(null);
+    } else {
+      alert("Wrong username or password");
     }
   }
 

@@ -9,15 +9,15 @@ module.exports = function(app, passport) {
         return next(err);
       }
 
-      if(!user) {
-        return res.status(401).send({success: false, message: "authentication failed"});
+      if(user.validationError) {
+        return res.status(400).send({success: false, message: user.validationError});
       }
 
       req.login(user, function(err) {
         if(err) {
           return next(err);
         }
-        return res.send({success: true, user_id: user.id, message: "authentication succeeded"});
+        return res.send({success: true, user_id: user.id, message: "login succeeded"});
       });
     })(req, res, next);
   });
@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
       }
 
       if(!user) {
-        return res.status(401).send({success: false, message: "login failed"});
+        return res.status(400).send({success: false, message: "wrong username or password"});
       }
 
       req.login(user, function(err) {

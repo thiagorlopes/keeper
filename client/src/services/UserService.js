@@ -15,10 +15,11 @@ const signup = (callback, data) => {
         console.log("Successful signup");
         callback(response.data);
       } else {
-        console.log("Something went wrong during signup");
+        callback(false);
       }
     })
     .catch((e) => {
+      alert(e.response.data.message);
       console.log(e);
     });
 };
@@ -27,13 +28,14 @@ const login = (callback, data) => {
   return http.post("/users/login", data).then((response) => {
       if(response.data.success) {
         console.log("succesful login");
-        callback(response.data);
       } else {
-        console.log("wrong username or password");
+        alert("wrong username or password");
       }
+      callback(response.data);
     })
     .catch((e) => {
-      console.log(e);
+      alert(e.response.data.message);
+      callback(e);
     });
 };
 
