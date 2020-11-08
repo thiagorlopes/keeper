@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import UserDataService from "../services/UserService";
 import useForm from "./helpers/useForm";
 import validate from "./helpers/SignupFormValidationRules";
 
 function SignUp(props) {
+  const [validation, setValidation] = useState({});
+
   const { values, errors, handleChange, handleSubmit } = useForm(
     createUser,
-    validate
+    validate,
+    validation
   );
 
   function createUser() {
-    UserDataService.signup(props.onLogin, values);
-    console.log("No validations errors, called signup.");
+    return UserDataService.signup(props.onLogin, setValidation, values);
   }
 
   // Render Signup page

@@ -8,18 +8,22 @@ const getCurrent = (callback) => {
     console.log(e);
   })
 }
-const signup = (callback, data) => {
+
+const signup = (callback, setValidation, data) => {
 
   return http.post("/users/signup", data).then((response) => {
       if(response.data.success) {
         console.log("Successful signup");
+        setValidation({});
         callback(response.data);
-      } else {
-        callback(false);
-      }
+      } else
+      callback(false);
     })
     .catch((e) => {
-      alert(e.response.data.message);
+      console.log(e.response.data);
+      if(!e.response.data.unique) {
+        setValidation(e.response.data);
+      }
       console.log(e);
     });
 };

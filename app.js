@@ -52,7 +52,7 @@ require("./config/passport")(passport, models.user);
 // load routes
 indexRoute = require("./routes/index")(app);
 notesRoute = require("./routes/notes")(app);
-usersRoute = require("./routes/users")(app, passport);
+usersRoute = require("./routes/users")(app);
 
 // sync database
 models.sequelize.sync({force: false});

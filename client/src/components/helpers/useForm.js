@@ -1,15 +1,24 @@
 import { useState, useEffect } from "react";
 
-const useForm = (callback, validate) => {
+const useForm = (callback, validate, validationError) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      callback();
+      callback().then(() => {
+        if(validationError.notUnique) {
+          setErrors(() => ({
+            [validationError.field]: validationError.field + " already in use"
+          }));
+          setIsSubmitting(false);
+        }
+      }
+      );
     }
-  }, [errors, isSubmitting, callback]);
+
+  }, [errors, isSubmitting, callback, validationError]);
 
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
@@ -24,6 +33,7 @@ const useForm = (callback, validate) => {
       [event.target.name]: event.target.value,
     }));
   };
+
 
   return {
     handleChange,

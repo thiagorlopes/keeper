@@ -12,9 +12,12 @@ module.exports = function(passport, user) {
 
         }, function (req, username, password, done) {
             console.log("signup for ", username)
+
             var generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             }
+
+            // Check if username exists
             User.findOne({
                 where: {
                     username: username
@@ -23,38 +26,42 @@ module.exports = function(passport, user) {
                 if (user) {
                     console.log("username already exists");
                     return done(null, {
-                        validationError: "username already exists"
+                        notUnique: true,
+                        field: "username"
                     });
-                } else {
-                    User.findOne({
-                        where: {
-                            email: req.body.email
-                        }
-                    }).then(function(user) {
-                        if (user) {
-                            console.log("email already exists");
-                            return done(null, {
-                                validationError: "email already exists"
-                            });
-                        } else {
-                            var userPassword = generateHash(password);
-                            var data = {
-                                email: req.body.email,
-                                username: req.body.username,
-                                password: userPassword,
-                            };
+                }
 
-                            User.create(data).then(function (newUser, created) {
-                                if (!newUser) {
-                                    return done(null, false);
-                                }
-                                if (newUser) {
-                                    return done(null, newUser);
-                                }
-                            });
+                // Check if email exists
+                User.findOne({
+                    where: {
+                        email: req.body.email
+                    }
+                }).then(function(user) {
+                    if (user) {
+                        console.log("email already exists");
+                        return done(null, {
+                            notUnique: true,
+                            field: "email"
+                        });
+                    }
+
+                    // Create new user if no validation errors present
+                    var userPassword = generateHash(password);
+                    var data = {
+                        email: req.body.email,
+                        username: req.body.username,
+                        password: userPassword,
+                    };
+
+                    User.create(data).then(function (newUser, created) {
+                        if (!newUser) {
+                            return done(null, false);
+                        }
+                        if (newUser) {
+                            return done(null, newUser);
                         }
                     });
-                    }
+                });
             });
         }
     ));

@@ -33,8 +33,6 @@ function App() {
     if(currentUser.success) {
       setAuth(false);
       setUserId(null);
-    } else {
-      alert("Wrong username or password");
     }
   }
 
