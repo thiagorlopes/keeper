@@ -1,5 +1,5 @@
 const db = require("../models");
-const Note = db.notes;
+const Note = db.Note;
 const Op = db.Sequelize.Op;
 
 // Create and save a new note
@@ -17,7 +17,8 @@ exports.create = (req, res) => {
   const note = {
     title: req.body.title,
     content: req.body.content,
-    user_id: req.user.id
+    user_id: req.user.id,
+    completed: req.user.completed
   };
 
   // Save Note in the database

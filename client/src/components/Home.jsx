@@ -6,6 +6,7 @@ import Note from "./Note";
 function Home(props) {
   // Store all notes in an array
   const [notes, setNotes] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   // Fill notes array with notes in database
   useEffect(() => {
@@ -16,8 +17,12 @@ function Home(props) {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [refresh]);
 
+  // Toggle refresh callback to be passed to note
+  function refreshHome() {
+    setRefresh(!refresh);
+  }
   // Add new note to array
   function addNote(newNote) {
     setNotes((prevNotes) => {
@@ -28,9 +33,9 @@ function Home(props) {
   // Delete note by id
   function deleteNote(id) {
     NoteDataService.remove(id)
-      .then((response) => {
+      .then(() => {
         setNotes((prevNotes) => {
-          return prevNotes.filter((currentNote, index) => {
+          return prevNotes.filter((currentNote) => {
             return currentNote.id !== id;
           });
         });
@@ -44,18 +49,40 @@ function Home(props) {
   return (
     <div>
       <InputArea userId={props.userId} onAdd={addNote} />
-      {notes.map(function (note, index) {
-        return (
-          <Note
-            key={note.id}
-            id={note.id}
-            userId={props.userId}
-            title={note.title}
-            content={note.content}
-            onDelete={deleteNote}
-          />
-        );
-      })}
+      {notes.length !== 0 ? <h5 style={{paddingLeft: "1%"}}>To Do</h5> : null}
+      <div style={{display: "inline-block"}}>
+        {notes.filter(note => !note.completed).map(function (note) {
+          return (
+            <Note
+              key={note.id}
+              id={note.id}
+              userId={props.userId}
+              title={note.title}
+              content={note.content}
+              completed={note.completed}
+              onDelete={deleteNote}
+              onRefresh={refreshHome}
+            />
+          );
+        })}
+      </div>
+      {notes.length !== 0 ? <h5 style={{paddingLeft: "1%"}}>Completed</h5> : null}
+      <div style={{display: "inline-block"}}>
+        {notes.filter(note => note.completed).map(function (note) {
+          return (
+            <Note
+              key={note.id}
+              id={note.id}
+              userId={props.userId}
+              title={note.title}
+              content={note.content}
+              completed={note.completed}
+              onDelete={deleteNote}
+              onRefresh={refreshHome}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

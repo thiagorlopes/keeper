@@ -47,7 +47,7 @@ app.use(cors(corsOptions));
 const models = require("./models");
 
 // load passport strategies
-require("./config/passport")(passport, models.user);
+require("./config/passport")(passport, models.User);
 
 // load routes
 indexRoute = require("./routes/index")(app);

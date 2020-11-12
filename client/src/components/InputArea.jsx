@@ -10,6 +10,7 @@ function InputArea(props) {
     id: 1,
     title: "",
     content: "",
+    completed: false,
   });
 
   // Set id for new note and input or textarea value according to name: title or content

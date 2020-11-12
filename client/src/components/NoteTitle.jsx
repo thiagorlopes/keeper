@@ -22,7 +22,14 @@ function NoteTitle(props) {
         />
       )}
 
-      {!props.editable && <h1 className="note-title">{props.title}</h1>}
+      {!props.editable && (
+        <h1
+          className="note-title"
+          style={{ textDecoration: props.complete ? "line-through" : null }}
+        >
+          {props.title}
+        </h1>
+      )}
     </div>
   );
 }

@@ -13,7 +13,14 @@ function NoteContent(props) {
         />
       )}
 
-      {!props.editable && <p className="note-content">{props.content}</p>}
+      {!props.editable && (
+        <p
+          className="note-content"
+          style={{ textDecorationLine: props.complete ? "line-through" : null }}
+        >
+          {props.content}
+        </p>
+      )}
     </div>
   );
 }
