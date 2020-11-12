@@ -30,11 +30,12 @@ function Note(props) {
     });
   }
 
-    useEffect(() => {
-      if(!editable) {
-        updateNoteService();
-      }
-    }, [note]);
+  // Update  status in server at each change in note object, if not being edited
+  useEffect(() => {
+    if(!editable) {
+      updateNoteService();
+    }
+  }, [note]);
 
   function updateNoteService() {
     // Update note through axios

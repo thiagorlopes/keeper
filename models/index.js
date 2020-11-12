@@ -37,12 +37,6 @@ db.Sequelize = Sequelize;
 const User = require("./user.js")(sequelize, Sequelize);
 const Note = require("./note.js")(sequelize, Sequelize);
 
-/*User.hasMany(Note, {
-  foreignKey: {
-    name: "user_id"
-  }
-});*/
-
 db.users = User; 
 db.notes = Note;
 

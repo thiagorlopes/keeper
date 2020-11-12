@@ -49,7 +49,11 @@ function Home(props) {
   return (
     <div>
       <InputArea userId={props.userId} onAdd={addNote} />
+
+      {/* render section name only if notes array isn't empty */}
       {notes.length !== 0 ? <h5 style={{paddingLeft: "1%"}}>To Do</h5> : null}
+
+      {/* render only notes not completed */}
       <div style={{display: "inline-block"}}>
         {notes.filter(note => !note.completed).map(function (note) {
           return (
@@ -66,7 +70,11 @@ function Home(props) {
           );
         })}
       </div>
+
+      {/* render section name only if notes array isn't empty */}
       {notes.length !== 0 ? <h5 style={{paddingLeft: "1%"}}>Completed</h5> : null}
+
+      {/* render only completed notes */}
       <div style={{display: "inline-block"}}>
         {notes.filter(note => note.completed).map(function (note) {
           return (
