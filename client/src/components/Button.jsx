@@ -4,8 +4,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 
 function Button(props) {
   switch (props.type) {
@@ -13,7 +13,11 @@ function Button(props) {
       // Render add button
       return (
         <div>
-          <button type="button" className={props.className} onClick={props.onAdd}>
+          <button
+            type="button"
+            className={props.className}
+            onClick={props.onAdd}
+          >
             <AddIcon />
           </button>
         </div>
@@ -22,20 +26,24 @@ function Button(props) {
       // Render edit button if note is not editable or confirmation button otherwise
       return (
         <div>
-          {!props.editable && (<button type="button" onClick={props.onEdit}>
+          {!props.editable && (
+            <button type="button" onClick={props.onEdit}>
               <EditIcon />
-            </button>)}
-          {props.editable && (<button type="button" onClick={props.onSubmit}>
+            </button>
+          )}
+          {props.editable && (
+            <button type="button" onClick={props.onSubmit}>
               <CheckCircleIcon />
-            </button>)}
+            </button>
+          )}
         </div>
       );
     case "delete":
       // Render delete button in Note.jsx
       return (
-          <button onClick={props.onDelete}>
-            <DeleteIcon />
-          </button>
+        <button onClick={props.onDelete}>
+          <DeleteIcon />
+        </button>
       );
     case "cancel":
       // Render cancel button
@@ -45,15 +53,19 @@ function Button(props) {
         </button>
       );
     case "complete":
-        // Render radio button with state based on props
+      // Render radio button with state based on props
       return (
         <div>
-          {!props.complete && (<button type="button" onClick={props.toggleComplete}>
-            <RadioButtonUncheckedIcon />
-          </button>)}
-          {props.complete && (<button type="button" onClick={props.toggleComplete}>
-            <RadioButtonCheckedIcon />
-            </button>)}
+          {!props.complete && (
+            <button type="button" onClick={props.toggleComplete}>
+              <RadioButtonUncheckedIcon />
+            </button>
+          )}
+          {props.complete && (
+            <button type="button" onClick={props.toggleComplete}>
+              <RadioButtonCheckedIcon />
+            </button>
+          )}
         </div>
       );
     default:

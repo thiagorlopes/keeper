@@ -1,6 +1,5 @@
-const db = require("../models");
-const Note = db.Note;
-const Op = db.Sequelize.Op;
+const models = require("../models");
+const Note = models.Note;
 
 // Create and save a new note
 exports.create = (req, res) => {
@@ -35,10 +34,10 @@ exports.create = (req, res) => {
 
 // Retrieve ALL notes
 exports.findAll = (req, res) => {
-  Note.findAll({ 
+  Note.findAll({
     where: {
       user_id: req.user.id
-    } 
+    }
   })
   .then((data) => {
     res.send(data);
@@ -114,8 +113,10 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
+  const id = req.params.user_id;
+
   Note.destroy({
-    where: {},
+    where: { id: id },
     truncate: false,
   })
     .then((nums) => {

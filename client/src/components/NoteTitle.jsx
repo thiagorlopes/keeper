@@ -11,6 +11,7 @@ function NoteTitle(props) {
     <div>
       {props.editable && (
         <input
+          autoComplete="off"
           className="note-title"
           onChange={props.onChange}
           value={props.title}

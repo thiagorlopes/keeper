@@ -37,7 +37,7 @@ db.Sequelize = Sequelize;
 const User = require("./user.js")(sequelize, Sequelize);
 const Note = require("./note.js")(sequelize, Sequelize);
 
-db.users = User; 
+db.users = User;
 db.notes = Note;
 
 module.exports = db;

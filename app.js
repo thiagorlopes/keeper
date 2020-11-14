@@ -21,16 +21,18 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 // setup passport session
+app.use(cookieParser(process.env.SECRET));
+
 app.use(
   session({
     secret: process.env.SECRET, 
     resave: true, 
     saveUninitialized: true,
+    cookie: { secure: false },
     duration: 30 * 60 * 1000
   })
 );
 
-app.use(cookieParser(process.env.SECRET));
 
 app.use(passport.initialize());
 app.use(passport.session());

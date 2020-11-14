@@ -16,12 +16,12 @@ const update = (id, data) => {
   return http.put(`/notes/${id}`, data);
 };
 
-const remove = (id) => {
-  return http.delete(`/notes/${id}`);
+const removeAll = (user_id) => {
+  return http.delete(`/notes/${user_id}`);
 };
 
-const removeAll = () => {
-  return http.delete("/notes/");
+const remove = (id) => {
+  return http.delete(`/notes/${id}`);
 };
 
 export default {
