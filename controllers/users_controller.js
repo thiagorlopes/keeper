@@ -52,3 +52,24 @@ exports.logout = function (req, res) {
         return res.send({success: true, message: "logout succeeded"});
     });
 }
+
+exports.forgot = function (req, res) {
+  User.findOne({
+    email: req.body.email
+  }).then(function(user) {
+    if(!user) {
+      return res.send({success: false, message: "No account with that email address exists."});
+    }
+
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 60*60;
+
+    console.log(user);
+    user.save().then(function(user) {
+      console.log(user);
+      return res.send({token: token})
+    }).catch(function(error) {
+      console.log(error);
+    });
+  })
+}

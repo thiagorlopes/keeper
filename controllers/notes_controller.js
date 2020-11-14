@@ -2,6 +2,15 @@ const db = require("../models");
 const Note = db.Note;
 const Op = db.Sequelize.Op;
 
+
+function checkAuthentication(req, res, next) {
+  if(req.isAuthenticated()) {
+    next();
+  } else {
+    res.send({message: "User is not authenticated."});
+  }
+}
+
 // Create and save a new note
 exports.create = (req, res) => {
 

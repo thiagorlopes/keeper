@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     user_id: DataTypes.INTEGER,
-    completed: DataTypes.BOOLEAN
+    completed: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Note',

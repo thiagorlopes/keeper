@@ -8,4 +8,6 @@ module.exports = function(app) {
   app.post("/users/login", users.login);
 
   app.get("/users/logout", users.logout);
+
+  app.post("/users/forgot", users.forgot);
 }

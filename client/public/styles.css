@@ -13,6 +13,7 @@ body {
   height: 100%;
   position: relative;
   background: #eee;
+  background-image: url("./cubes.png");
 }
 
 #root {
