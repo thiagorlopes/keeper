@@ -10,4 +10,6 @@ module.exports = function(app) {
   app.get("/users/logout", users.logout);
 
   app.post("/users/forgot", users.forgot);
+
+  app.get("/reset/:token", users.reset);
 }

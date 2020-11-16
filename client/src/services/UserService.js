@@ -57,9 +57,19 @@ const logout = (callback) => {
   });
 };
 
+const forgot = (data, callback) => {
+  return http.post("/users/forgot", data).then((response) => {
+    callback(response.data);
+  })
+  .catch((e) => {
+    alert(e.response.data.message);
+  });
+};
+
 export default {
   getCurrent,
   signup,
   login,
-  logout
+  logout,
+  forgot
 };
