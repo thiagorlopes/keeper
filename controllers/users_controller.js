@@ -3,6 +3,9 @@ const User = db.User;
 const passport = require("passport");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const mailer = require("../config/mailer");
+const Op = db.Sequelize.Op;
+const bCrypt = require("bcrypt");
 
 exports.current = (req, res) => {
     res.send(req.isAuthenticated());
@@ -69,7 +72,6 @@ exports.forgot = (req, res) => {
 
   // If username exists, token value and expiration date are stored in database
   function findUser(token) {
-    console.log();
     User.findOne({
       where: {
         email: req.body.email
@@ -84,7 +86,7 @@ exports.forgot = (req, res) => {
 
       // If user is successfully saved on database, send token to them through SMTP server
       user.save().then(function(user) {
-        sendEmail(token, user); 
+        sendEmail(token, user);
       }).catch(function(error) {
         res.status(422).send(error);
       });
@@ -140,19 +142,66 @@ exports.forgot = (req, res) => {
 
 // If token is valid, redirect user to password reset screen
 exports.reset = (req, res) => {
-  console.log(new Date().toLocaleString());
   User.findOne({
     where: {
       reset_password_token: req.params.token,
-      reset_password_expires: { $gt: new Date().toLocaleString() }
+      reset_password_expires: { [Op.gt]: Date.now()}
     }
   }).then(function(user) {
     if(!user) {
       return res.status(422).json({message: "Token is invalid or has expired."});
     }
-    return res.status(200).send({successRedirect: "/login", failureRedirect: "/reset"});
+
+    var hashedPassword = bCrypt.hashSync(req.body.password, bCrypt.genSaltSync(8), null);
+
+    user.password = hashedPassword;
+    user.reset_password_token = null;
+    user.reset_password_expires = null;
+
+    // If user is successfully saved on database, alert about change through email
+    user.save().then(function(user) {
+      sendEmail(user); 
+    }).catch(function(error) {
+      res.status(422).send(error);
+    });
+
   })
   .catch((e) => {
     console.log(e);
   });
+
+  function sendEmail(user){
+    var transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD
+      }
+    })
+
+    var resetOptions = {
+      from: process.env.EMAIL_ADDRESS,
+      to: user.email,
+      subject: "Your password has been changed",
+      html: `<p>Hi, ${user.username}</p>
+      <p>This is a confirmation that the password for your Keeper acount has been changed.</p>
+
+      <p>If you did not request a password change, please reply to this email.</p>
+      <p>Thanks,<br />
+      Thiago Rodrigues</p>`
+    };
+
+    transporter.sendMail(resetOptions, function(err, info){
+      console.log(info);
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        console.log ("success", `An e-mail has been sent to ${user.email} alerting about the password change.`);
+        return res.status(200).json({
+          success: true,
+          message: `The password was successfully updated.`
+        });
+      }
+    });
+  }
 }

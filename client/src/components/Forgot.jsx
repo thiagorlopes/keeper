@@ -5,12 +5,12 @@ import validate from "./helpers/ForgotFormValidationRules";
 
 function Forgot() {
   const [response, setResponse] = useState({});
-  const [validation, setValidation] = useState({});
 
+  // Third argument is reserved for checking uniqueness of username and email on SignUp
   const { values, errors, handleChange, handleSubmit } = useForm(
     forgotPassword,
     validate,
-    validation
+    null
   );
 
   function forgotPassword() {

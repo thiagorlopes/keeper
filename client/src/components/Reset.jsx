@@ -6,12 +6,12 @@ import validate from "./helpers/ResetFormValidationRules";
 
 function Reset() {
   const [response, setResponse] = useState({});
-  const [validation, setValidation] = useState({});
 
+  // Third argument is reserved for checking uniqueness of username and email on SignUp
   const { values, errors, handleChange, handleSubmit } = useForm(
     resetPassword,
     validate,
-    validation
+    null
   );
 
   const params = useParams();
@@ -20,7 +20,14 @@ function Reset() {
     return UserDataService.reset(renderMessage, values, params.token);
   }
 
-  function renderMessage() {}
+  function renderMessage(res) {
+    setResponse(() => {
+      return {
+        success: res.success,
+        message: res.message,
+      };
+    });
+  }
 
   // Render Reset page
   return (

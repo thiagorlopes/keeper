@@ -67,7 +67,7 @@ const forgot = (callback, data) => {
 };
 
 const reset = (callback, data, token) => {
-  return http.get(`/reset/${token}`, data).then((response) => {
+  return http.post(`/reset/${token}`, data).then((response) => {
     callback(response.data);
   })
   .catch((e) => {
