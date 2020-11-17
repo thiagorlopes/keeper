@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   padding: 0;
   margin: 0;
@@ -169,3 +170,176 @@ footer {
 footer p {
   color: #ccc;
 }
+=======
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* HTML tags */
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  height: 100%;
+  position: relative;
+  background: #eee;
+  background-image: url("./cubes.png");
+}
+
+#root {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+
+/* Navigation bar */
+.navbar {
+  background-color: #f5ba13;
+  color: #fff;
+  font-family: "Mclaren", cursive;
+  margin: auto -16px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.navbar-light .navbar-nav .nav-link,
+.nav-link h1 {
+  color: #fff;
+}
+
+/* Create note form */
+form.create-note-form {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+
+input.note-title,
+textarea.note-content,
+h1.note-title,
+p.note-content {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #fff;
+  outline: 0;
+  font-size: 1.1em;
+  font-family: inherit;
+  resize: none;
+  width: 100%;
+  overflow: hidden;
+}
+
+button.create-note-form {
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  background: #f5ba13;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+}
+
+/* Notes */
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 240px;
+  margin: 16px;
+  float: left;
+}
+
+.note h1,
+input.note-title {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+
+.note p,
+textarea.note-content {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.note button {
+  background: #fff;
+  color: #f5ba13;
+}
+
+.note button,
+header button {
+  position: relative;
+  float: right;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Login and Signup pages */
+.form-title {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.custom-form {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+
+.form-control {
+  margin-bottom: 0.5em;
+}
+
+.is-danger {
+  border-color: #bb2124;
+}
+
+.custom-form .btn {
+  margin-top: 1em;
+}
+
+.btn-warning {
+  color: white;
+}
+
+/* 404 page */
+.not-found {
+  padding: 2em 1em 0;
+}
+
+/* Footer */
+footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+footer p {
+  color: #ccc;
+}
+>>>>>>> mailer-branch

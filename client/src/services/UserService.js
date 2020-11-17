@@ -57,9 +57,29 @@ const logout = (callback) => {
   });
 };
 
+const forgot = (callback, data) => {
+  return http.post("/users/forgot", data).then((response) => {
+    callback(response.data);
+  })
+  .catch((e) => {
+    alert(e.response.data.message);
+  });
+};
+
+const reset = (callback, data, token) => {
+  return http.post(`/reset/${token}`, data).then((response) => {
+    callback(response.data);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
+};
+
 export default {
   getCurrent,
   signup,
   login,
-  logout
+  logout,
+  forgot,
+  reset
 };

@@ -43,9 +43,8 @@ function Login(props) {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className="btn btn-warning">
-            Login
-          </button>
+          <button type="submit" className="btn btn-warning">Login</button>
+          <a href="/forgot" style={{float: "right", marginTop: "auto"}}>Forgot your password?</a>
         </div>
       </form>
     </div>

@@ -5,6 +5,8 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import Login from "./Login";
 import Signup from "./Signup";
+import Forgot from "./Forgot";
+import Reset from "./Reset";
 import NotFound from "./NotFound";
 import Footer from "./Footer";
 
@@ -44,6 +46,8 @@ function App() {
         <Route exact path="/" component={auth? () => <Home userId={userId} /> : () => <Login onLogin={handleLogin} />}/>
         {!auth && (<Route path="/login" component={() => <Login onLogin={handleLogin} />}/>)}
         {!auth && (<Route path="/signup" component={() => <Signup onLogin={handleLogin} />}/>)}
+        {!auth && (<Route path="/forgot" component={() => <Forgot />}/>)}
+        {!auth && (<Route path="/reset/:token" component={() => <Reset />}/>)}
         <Route component={NotFound} />
       </Switch>
       <Footer />

@@ -9,9 +9,6 @@ module.exports = {
   },
 
   down: function(queryInterface, Sequelize) {
-      return queryInterface.removeColumn(
-          'Notes',
-          'completed',
-      );
+      return queryInterface.removeColumn('Notes','completed',);
   }  
 };

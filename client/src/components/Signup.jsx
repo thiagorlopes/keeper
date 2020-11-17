@@ -4,6 +4,7 @@ import useForm from "./helpers/useForm";
 import validate from "./helpers/SignupFormValidationRules";
 
 function SignUp(props) {
+  // Uniqueness validation for username and email
   const [validation, setValidation] = useState({});
 
   const { values, errors, handleChange, handleSubmit } = useForm(
@@ -12,6 +13,7 @@ function SignUp(props) {
     validation
   );
 
+  // Validation object stores errors returned by served
   function createUser() {
     return UserDataService.signup(props.onLogin, setValidation, values);
   }

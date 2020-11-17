@@ -7,12 +7,17 @@ const useForm = (callback, validate, validationError) => {
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
+      // Submitting flag is turned off immediately to prevent multiple requests
+      setIsSubmitting(false);
+
+      // Callback is activated and uniqueness is ensured by signup validationError
       callback().then(() => {
-        if(validationError.notUnique) {
-          setErrors(() => ({
-            [validationError.field]: validationError.field + " already in use"
-          }));
-          setIsSubmitting(false);
+        if(validationError != null) {
+          if(validationError.notUnique) {
+            setErrors(() => ({
+              [validationError.field]: validationError.field + " already in use"
+            }));
+          }
         }
       }
       );
@@ -33,7 +38,6 @@ const useForm = (callback, validate, validationError) => {
       [event.target.name]: event.target.value,
     }));
   };
-
 
   return {
     handleChange,
