@@ -1,38 +1,32 @@
 import React, { useState } from "react";
 import UserDataService from "../services/UserService";
+import useForm from "./helpers/useForm";
+import validate from "./helpers/ForgotFormValidationRules";
 
 function Forgot() {
-  const [values, setValues] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState({});
+  const [validation, setValidation] = useState({});
 
-  function handleSubmit(e) {
-    if (e) e.preventDefault();
-    if (!isSubmitting) {
-      setIsSubmitting(false);
-      UserDataService.forgot(values, renderMessage);
-    }
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    forgotPassword,
+    validate,
+    validation
+  );
+
+  function forgotPassword() {
+    return UserDataService.forgot(renderMessage, values);
   }
 
   function renderMessage(res) {
     setResponse(() => {
       return {
         success: res.success,
-        message: res.message
+        message: res.message,
       };
     });
-    setIsSubmitting(false);
   }
 
-  function handleChange(e) {
-    e.persist();
-    setValues((values) => ({
-      ...values,
-      [e.target.name]: e.target.value,
-    }));
-  }
-
-  // Render Login page
+  // Render Forgot page
   return (
     <div>
       <h1 className="form-title">Forgot Password</h1>
@@ -46,8 +40,8 @@ function Forgot() {
                 type="text"
                 name="email"
                 onChange={handleChange}
-                required
               />
+              {errors.email && <p style={{ color: "#bb2124" }}>{errors.email}</p>}
               <button type="submit" className="btn btn-warning">
                 Send reset instructions
               </button>

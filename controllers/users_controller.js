@@ -69,6 +69,7 @@ exports.forgot = (req, res) => {
 
   // If username exists, token value and expiration date are stored in database
   function findUser(token) {
+    console.log();
     User.findOne({
       where: {
         email: req.body.email
@@ -109,7 +110,7 @@ exports.forgot = (req, res) => {
       html: `<p>Hi, ${user.username}</p>
       <p>You recently requested to reset your password for your Keeper account.
       Click the link below to reset it.</p> 
-      <a href="http://${req.headers.host}/reset/${token}">Reset password</a>
+      <a href="http://${req.headers["x-forwarded-host"]}/reset/${token}">Reset password</a>
       <p>If you did not request a password reset, please ignore this email or reply to let us know.
       This password reset is only valid for the next hour.<p>
 
@@ -119,7 +120,7 @@ exports.forgot = (req, res) => {
 
       <h4 style="font-weight:normal;">If you are having trouble clicking the password reset link, copy and paste the URL below
       into your browser</h4>
-      http://${req.headers.host}/reset/${token}`
+      http://${req.headers["x-forwarded-host"]}/reset/${token}`
     }; 
 
     transporter.sendMail(resetOptions, function(err, info){
@@ -143,13 +144,13 @@ exports.reset = (req, res) => {
   User.findOne({
     where: {
       reset_password_token: req.params.token,
-      reset_password_expires: { $gt: Date.now() }
+      reset_password_expires: { $gt: new Date().toLocaleString() }
     }
   }).then(function(user) {
     if(!user) {
       return res.status(422).json({message: "Token is invalid or has expired."});
     }
-    return res.redirect("/forgot");
+    return res.status(200).send({successRedirect: "/login", failureRedirect: "/reset"});
   })
   .catch((e) => {
     console.log(e);

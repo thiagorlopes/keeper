@@ -47,7 +47,7 @@ function App() {
         {!auth && (<Route path="/login" component={() => <Login onLogin={handleLogin} />}/>)}
         {!auth && (<Route path="/signup" component={() => <Signup onLogin={handleLogin} />}/>)}
         {!auth && (<Route path="/forgot" component={() => <Forgot />}/>)}
-        {!auth && (<Route path="/reset" component={() => <Reset />}/>)}
+        {!auth && (<Route path="/reset/:token" component={() => <Reset />}/>)}
         <Route component={NotFound} />
       </Switch>
       <Footer />

@@ -57,7 +57,7 @@ const logout = (callback) => {
   });
 };
 
-const forgot = (data, callback) => {
+const forgot = (callback, data) => {
   return http.post("/users/forgot", data).then((response) => {
     callback(response.data);
   })
@@ -66,10 +66,20 @@ const forgot = (data, callback) => {
   });
 };
 
+const reset = (callback, data, token) => {
+  return http.get(`/reset/${token}`, data).then((response) => {
+    callback(response.data);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
+};
+
 export default {
   getCurrent,
   signup,
   login,
   logout,
-  forgot
+  forgot,
+  reset
 };
