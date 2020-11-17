@@ -8,13 +8,9 @@ module.exports = function(app) {
 
   app.post("/users/login", users.login);
 
-<<<<<<< HEAD
   app.get("/users/logout", isLoggedIn, users.logout);
-=======
-  app.get("/users/logout", users.logout);
 
   app.post("/users/forgot", users.forgot);
 
   app.post("/reset/:token", users.reset);
->>>>>>> mailer-branch
 }

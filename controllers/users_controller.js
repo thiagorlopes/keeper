@@ -3,7 +3,6 @@ const User = db.User;
 const passport = require("passport");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const mailer = require("../config/mailer");
 const Op = db.Sequelize.Op;
 const bCrypt = require("bcrypt");
 
