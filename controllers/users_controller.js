@@ -148,7 +148,7 @@ exports.reset = (req, res) => {
     }
   }).then(function(user) {
     if(!user) {
-      return res.status(422).json({message: "Token is invalid or has expired."});
+      return res.status(422).json({render: true, message: "Token is invalid or has expired."});
     }
 
     var hashedPassword = bCrypt.hashSync(req.body.password, bCrypt.genSaltSync(8), null);
@@ -197,7 +197,7 @@ exports.reset = (req, res) => {
       } else {
         console.log ("success", `An e-mail has been sent to ${user.email} alerting about the password change.`);
         return res.status(200).json({
-          success: true,
+          render: true,
           message: `The password was successfully updated.`
         });
       }

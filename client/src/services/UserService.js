@@ -71,7 +71,7 @@ const reset = (callback, data, token) => {
     callback(response.data);
   })
   .catch((e) => {
-    console.log(e);
+    callback(e.response.data);
   });
 };
 

@@ -20,7 +20,7 @@ function Forgot() {
   function renderMessage(res) {
     setResponse(() => {
       return {
-        success: res.success,
+        render: res.render,
         message: res.message,
       };
     });
@@ -32,7 +32,7 @@ function Forgot() {
       <h1 className="form-title">Forgot Password</h1>
       <form method="POST" onSubmit={handleSubmit}>
         <div className="custom-form">
-          {!response.success && (
+          {!response.render && (
             <div>
               <label>Email:</label>
               <input
@@ -47,7 +47,7 @@ function Forgot() {
               </button>
             </div>
           )}
-          {response.success && (
+          {response.render && (
             <div>
               <p>{response.message}</p>
               <a href="/">Return</a>

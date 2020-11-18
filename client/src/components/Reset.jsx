@@ -23,7 +23,7 @@ function Reset() {
   function renderMessage(res) {
     setResponse(() => {
       return {
-        success: res.success,
+        render: res.render,
         message: res.message,
       };
     });
@@ -35,7 +35,7 @@ function Reset() {
       <h1 className="form-title">Reset Password</h1>
       <form method="POST" onSubmit={handleSubmit}>
         <div className="custom-form">
-          {!response.success && (
+          {!response.render && (
             <div>
               <label>New Password:</label>
               <input
@@ -58,7 +58,7 @@ function Reset() {
               </button>
             </div>
           )}
-          {response.success && (
+          {response.render && (
             <div>
               <p>{response.message}</p>
               <a href="/">Return</a>
