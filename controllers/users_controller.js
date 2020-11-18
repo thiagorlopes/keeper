@@ -7,7 +7,8 @@ const Op = db.Sequelize.Op;
 const bCrypt = require("bcrypt");
 
 exports.current = (req, res) => {
-    res.send(req.isAuthenticated());
+    var status = req.isAuthenticated();
+    res.status(200).json({authenticated: status});
 };
 
 exports.signup = (req, res, next) => {
@@ -58,6 +59,12 @@ exports.logout = (req, res) => {
 }
 
 exports.forgot = (req, res) => {
+
+  var origin = `http://${req.headers["x-forwarded-host"]}`
+
+  if(process.env.NODE_ENV === "production") {
+    origin = req.headers.origin;
+  }
 
   // Generate password reset token
   crypto.randomBytes(20, function(err, buf) {
@@ -111,7 +118,7 @@ exports.forgot = (req, res) => {
       html: `<p>Hi, ${user.username}</p>
       <p>You recently requested to reset your password for your Keeper account.
       Click the link below to reset it.</p> 
-      <a href="http://${req.headers["x-forwarded-host"]}/reset/${token}">Reset password</a>
+      <a href="${origin}/reset/${token}">Reset password</a>
       <p>If you did not request a password reset, please ignore this email or reply to let us know.
       This password reset is only valid for the next hour.<p>
 
@@ -121,7 +128,7 @@ exports.forgot = (req, res) => {
 
       <h4 style="font-weight:normal;">If you are having trouble clicking the password reset link, copy and paste the URL below
       into your browser</h4>
-      http://${req.headers["x-forwarded-host"]}/reset/${token}`
+      ${origin}/reset/${token}`
     }; 
 
     transporter.sendMail(resetOptions, function(err, info){
@@ -131,7 +138,7 @@ exports.forgot = (req, res) => {
       } else {
         console.log ("success", "An e-mail has been sent to " + user.email + " with further instructions to reset password.");
         return res.status(200).json({
-          success: true,
+          render: true,
           message: `An email has been sent to ${user.email} with further instructions to reset the password.`
         });
       }

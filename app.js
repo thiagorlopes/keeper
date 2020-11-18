@@ -10,8 +10,8 @@ const path = require("path");
 const app = express();
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
+  app.use(express.static(path.join(__dirname, "/client/build")));
+};
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +32,6 @@ app.use(
     duration: 30 * 60 * 1000
   })
 );
-
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,6 +54,10 @@ require("./config/passport")(passport, models.User);
 indexRoute = require("./routes/index")(app);
 notesRoute = require("./routes/notes")(app);
 usersRoute = require("./routes/users")(app);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 // sync database
 models.sequelize.sync({force: false});

@@ -1,7 +1,7 @@
 import http from "../utils/http-common";
 
 const getCurrent = (callback) => {
-  return http.get("users/current").then((response) => {
+  return http.get("/users/current").then((response) => {
     callback(response.data);
   })
   .catch((e) => {
@@ -67,7 +67,7 @@ const forgot = (callback, data) => {
 };
 
 const reset = (callback, data, token) => {
-  return http.post(`/reset/${token}`, data).then((response) => {
+  return http.post(`/users/reset/${token}`, data).then((response) => {
     callback(response.data);
   })
   .catch((e) => {

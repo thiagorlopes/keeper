@@ -18,8 +18,8 @@ function App() {
     UserDataService.getCurrent(toggleAuth);
   }, []);
 
-  function toggleAuth(isLoggedIn) {
-    setAuth(isLoggedIn);
+  function toggleAuth(status) {
+    setAuth(status.authenticated);
   }
 
   function handleLogin(currentUser) {
@@ -48,6 +48,7 @@ function App() {
         {!auth && (<Route path="/signup" component={() => <Signup onLogin={handleLogin} />}/>)}
         {!auth && (<Route path="/forgot" component={() => <Forgot />}/>)}
         {!auth && (<Route path="/reset/:token" component={() => <Reset />}/>)}
+        {!auth && (<Route path="/reset" component={() => <Reset />}/>)}
         <Route component={NotFound} />
       </Switch>
       <Footer />
