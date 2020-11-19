@@ -29,6 +29,13 @@ Project is created with:
 - [Express 6](https://expressjs.com/pt-br/)
 - [PostgreSQL 12](https://www.postgresql.org/)
 
+### Features
+- User sign up and authentication 
+- Custom validation rules during signup
+- Password reset through email
+- Notes creation, retrieval, update and deletion
+- Separation of notes by completed status
+
 ### Setup
 #### Server
 You can install the server locally by running npm:
@@ -63,14 +70,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-
-### To Do
-
-- Work on placement of notes in home screen;
-- Add login and register pages;
-- Implement authentication system;
-- Create mailer system for email confirmation.
 
 # Keeper
 
